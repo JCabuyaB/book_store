@@ -1,0 +1,39 @@
+.books{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.book-cover{
+    width: 225px;
+    height: 350px;
+    display: block;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+
+
+/* contenedor de las dos caras */
+.book-info{
+    padding: 10px;
+    width: 225px;
+    height: 350px;
+    background: var(--color-glass);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 20px 2px rgba(255, 255, 255, .5);
+}
+
+.book-info__title{
+    font-size: 25px;
+    color: var(--color-white);
+}
+
+.book-info__description{
+    margin-top: 10px;
+    color: var(--color-white);
+    font-size: 16px;
+}

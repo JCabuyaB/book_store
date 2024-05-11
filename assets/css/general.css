@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* ui */
+    --color-primary: #5744d8;
+    --color-secondary: #ffc13c;
+    --color-text: #3c3c3c;
+    --color-white: #fff;
+    --color-glass: rgba(226, 226, 226, 0.1);
+
+
+    /* user feedback */
+    --color-failed: #e15757;
+    --color-success: #66c459;
+}
+
+.body {
+    position: relative;
+    background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, .4)), url('../img/page/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: "Roboto";
+}
+
+.body::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+}
+
+.main{
+    width: 90%;
+    max-width: 1050px;
+    margin: 30px auto;
+}
