@@ -7,7 +7,7 @@
 :root {
     /* ui */
     --color-primary: #5744d8;
-    --color-secondary: #ffc13c;
+    --color-secondary: #fff645;
     --color-text: #3c3c3c;
     --color-white: #fff;
     --color-glass: rgba(226, 226, 226, 0.1);
@@ -32,10 +32,4 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-}
-
-.main{
-    width: 90%;
-    max-width: 1050px;
-    margin: 30px auto;
 }
