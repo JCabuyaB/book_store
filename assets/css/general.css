@@ -16,15 +16,20 @@
     /* user feedback */
     --color-failed: #e15757;
     --color-success: #66c459;
+
+    /* fonts */
+    --font-primary: "Roboto", sans-serif;
+    --font-secondary: "Caveat", cursive;
 }
 
 .body {
     position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, .4)), url('../img/page/bg.jpg');
+    background: var(--color-white);
+    /* background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, .4)), url('../img/page/bg.jpg'); */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    font-family: "Roboto";
+    font-family: var(--font-primary);
 }
 
 .body::after{

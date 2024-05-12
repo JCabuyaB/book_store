@@ -1,0 +1,13 @@
+.error{
+    height: 100vh;
+    width: 80%;
+    margin-inline: auto;
+    max-width: 800px;
+}
+
+.error__img{
+    margin-top: 30px;
+    display: block;
+    margin-inline: auto;
+    width: 350px;
+}
