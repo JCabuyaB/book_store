@@ -2,19 +2,20 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scrollbar-color: var(--color-secondary) var(--color-white);
 }
 
 :root {
     /* ui */
     --color-primary: #5744d8;
-    --color-secondary: #fff645;
+    --color-secondary: #FF8223;
     --color-text: #3c3c3c;
     --color-white: #fff;
     --color-glass: rgba(226, 226, 226, 0.1);
 
 
     /* user feedback */
-    --color-failed: #e15757;
+    --color-failed: #ff0000;
     --color-success: #66c459;
 
     /* fonts */

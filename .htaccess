@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    # activar rewrite
+    RewriteEngine on
+
+    # controlar error 404
+    ErrorDocument 404 http://localhost/book_store/errors/
+
+    # condiciones de reescritura
+    RewriteCond %{SCRIPT_FILENAME} !-d
+    RewriteCond %{SCRIPT_FILENAME} !-f
+
+    # regla de reescritura
+    RewriteRule ^(.*)/(.*) index.php?controller=$1&action=$2
+</IfModule>

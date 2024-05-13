@@ -5,22 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Librería Marinilla</title>
-    <link rel="shortcut icon" href="assets/img/page/book.png" type="image/x-icon">
+    <link rel="shortcut icon" href="<?=base_url?>assets/img/page/book.png" type="image/x-icon">
+
+    <!-- iconos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- fuente -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
-    <!-- layout -->
-    <link rel="stylesheet" href="assets/css/layout/header.css">
-    <link rel="stylesheet" href="assets/css/layout/footer.css">
+    <!-- estilos layout -->
+    <link rel="stylesheet" href="<?=base_url?>assets/css/layout/header.css">
+    <link rel="stylesheet" href="<?=base_url?>assets/css/layout/footer.css">
 
-    <!-- paginas -->
-    <link rel="stylesheet" href="assets/css/landing/landing.css">
-    <link rel="stylesheet" href="assets/css/errors/errors.css">
-    <link rel="stylesheet" href="assets/css/books/books.css">
-    <link rel="stylesheet" href="assets/css/general.css">
+    <!-- estilos paginas -->
+    <link rel="stylesheet" href="<?=base_url?>assets/css/landing/landing.css">
+    <link rel="stylesheet" href="<?=base_url?>assets/css/errors/errors.css">
+    <link rel="stylesheet" href="<?=base_url?>assets/css/books/books.css">
+    <link rel="stylesheet" href="<?=base_url?>assets/css/general.css">
+    <link rel="stylesheet" href="<?=base_url?>assets/css/forms/forms.css">
 </head>
 
 <body class="body">
@@ -31,7 +35,6 @@
             <a href="#" class="menu__item">database</a>
             <a href="#" class="menu__item">database</a>
             <a href="#" class="menu__item">database</a>
-            <a href="#" class="menu__item">Iniciar Sesión</a>
-            <a href="#" class="menu__item menu__item--emphasis">Registrarse</a>
+            <a href="<?=base_url?>usuario/index" class="menu__item menu__item--emphasis">Iniciar Sesión</a>
         </nav>
     </header>

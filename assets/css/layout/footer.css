@@ -1,6 +1,6 @@
 .footer{
-    background: var(--color-white);
-    color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-white);
     text-align: center;
     padding: 20px 0;
     font-size: 20px;

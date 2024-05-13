@@ -1,16 +1,35 @@
 <?php
 namespace config;
 use mysqli;
+use Exception;
 
 class Database{
-    public static function connect(){
-        $db = new mysqli('localhost', 'root', '', 'book_store');
-        $db->query("SET NAMES 'utf8'");
+    private static $instance = null;
+    private $connection;
 
-        if($db->connect_error){
-            die("No se pudo establecer conexion" . $db->connect_error);
+    // generar conexion al crear objeto
+    public function __construct()
+    {
+        $this->connection = new mysqli('localhost', 'root', '', 'book_store');
+        
+        if($this->connection->connect_error){
+            throw new Exception("No se pudo establecer conexion a la base de datos" . $this->connection->connect_error);
+        }else{
+            $this->connection->query("SET NAMES 'utf8'");
+        }
+    }
+
+    // generar instancia de el objeto
+    public static function getInstance(){
+        if(self::$instance === null){
+            self::$instance = new Database();
         }
 
-        return $db;
+        return self::$instance;
+    }
+
+    // retornar conexion
+    public function getConnection(){
+        return $this->connection;
     }
 }

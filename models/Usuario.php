@@ -13,11 +13,11 @@ class Usuario
     private $departamento;
     private $municipio;
     private $direccion;
-    private $base_datos;
+    private $db;
 
     public function __construct()
     {
-        $this->base_datos = Database::connect();
+        $this->db = Database::getInstance();
     }
 
     #region GETTERS Y SETTERS
@@ -129,9 +129,20 @@ class Usuario
     #region  CRUD
     // metodos del usuario
     public function crear_usuario(){
+        // flag para validar en el controlador
+        $result = false;
 
+        $query = "INSERT INTO tbl_usuarios VALUES(null, '{$this->nombre}', 'user', '{$this->correo}', '{$this->contra}', '{$this->departamento}', '{$this->municipio}', '{$this->direccion}');";
+
+        $connection = $this->db->getConnection();
+        $insert = $connection->query($query);
+
+        if($insert && $connection->affected_rows > 0){
+            $result = true;
+        }
+
+        return $result;
     } 
-
     
     public function listar_usuarios(){
 
