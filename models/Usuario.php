@@ -20,6 +20,14 @@ class Usuario
         $this->db = Database::getInstance();
     }
 
+    private function escapar_datos($dato){
+        $connection = $this->db->getConnection();
+        
+
+        $escape_result = $connection->real_escape_string($dato);
+
+        return $escape_result;
+    }
     #region GETTERS Y SETTERS
     // id
     public function getId()
@@ -29,7 +37,7 @@ class Usuario
 
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id = $this->escapar_datos($id);
 
         return $this;
     }
@@ -42,7 +50,7 @@ class Usuario
 
     public function setNombre($nombre)
     {
-        $this->nombre = $nombre;
+        $this->nombre = $this->escapar_datos($nombre);
 
         return $this;
     }
@@ -55,7 +63,7 @@ class Usuario
 
     public function setRol($rol)
     {
-        $this->rol = $rol;
+        $this->rol = $this->escapar_datos($rol);
 
         return $this;
     }
@@ -68,7 +76,7 @@ class Usuario
 
     public function setCorreo($correo)
     {
-        $this->correo = $correo;
+        $this->correo = $this->escapar_datos($correo);
 
         return $this;
     }
@@ -81,7 +89,7 @@ class Usuario
 
     public function setContra($contra)
     {
-        $this->contra = $contra;
+        $this->contra = $this->escapar_datos($contra);
 
         return $this;
     }
@@ -94,7 +102,7 @@ class Usuario
 
     public function setDepartamento($departamento)
     {
-        $this->departamento = $departamento;
+        $this->departamento = $this->escapar_datos($departamento);
 
         return $this;
     }
@@ -107,7 +115,7 @@ class Usuario
 
     public function setMunicipio($municipio)
     {
-        $this->municipio = $municipio;
+        $this->municipio = $this->escapar_datos($municipio);
 
         return $this;
     }
@@ -120,19 +128,43 @@ class Usuario
 
     public function setDireccion($direccion)
     {
-        $this->direccion = $direccion;
+        $this->direccion = $this->escapar_datos($direccion);
 
         return $this;
     }
     #endregion
     
-    #region  CRUD
     // metodos del usuario
-    public function crear_usuario(){
-        // flag para validar en el controlador
+    #region  CRUD
+    public function verificar_existencia_usuario(){
+        //flag 
         $result = false;
 
-        $query = "INSERT INTO tbl_usuarios VALUES(null, '{$this->nombre}', 'user', '{$this->correo}', '{$this->contra}', '{$this->departamento}', '{$this->municipio}', '{$this->direccion}');";
+        $query = "SELECT * FROM tbl_usuarios WHERE mail = '{$this->getCorreo()}';";
+
+        $connection = $this->db->getConnection();
+        $existe = $connection->query($query);
+
+        if($existe && $existe->num_rows == 1){
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    public function crear_usuario(?string $rol_data){
+        // flag para validar en el controlador
+        $result = false;
+                
+        if(isset($rol_data) && is_string($rol_data)){
+            $rol = $rol_data;
+        }else{
+            $rol = 'user';
+        }
+
+        $this->setRol($rol);
+
+        $query = "INSERT INTO tbl_usuarios VALUES(null, '{$this->nombre}', '{$this->getRol()}', '{$this->correo}', '{$this->contra}', '{$this->departamento}', '{$this->municipio}', '{$this->direccion}');";
 
         $connection = $this->db->getConnection();
         $insert = $connection->query($query);
@@ -156,4 +188,29 @@ class Usuario
 
     }
     #endregion
+
+    public function iniciar_sesion(){
+        $result = false;
+
+        $query = "SELECT * FROM tbl_usuarios WHERE mail = '{$this->getCorreo()}';";
+        
+        $connection = $this->db->getConnection();
+        $existe = $connection->query($query);
+
+        if($existe && $existe->num_rows == 1){
+            $user = $existe->fetch_object();
+
+            $confirm_user = password_verify($this->getContra(), $user->password);
+
+            if($confirm_user){
+                $result = $user;
+            }else{
+                $result = "Credenciales incorrectas";
+            }
+        }else{
+            $result = "El usuario no existe";
+        }
+
+        return $result;
+    }
 }

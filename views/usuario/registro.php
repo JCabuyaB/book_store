@@ -1,6 +1,13 @@
 <section class="form-container">
     <form action="<?= base_url ?>/usuario/registrar" class="form user-form user-register" method="POST">
         <h2 class="form__title">Registrarse</h2>
+        <?php if (isset($_SESSION['action_status']['failed'])) : ?>
+            <p class="form__main-alert form__failed"><?= $_SESSION['action_status']['failed'] ?></p>
+        <?php elseif (isset($_SESSION['user_register_error'])) : ?>
+            <p class="form__main-alert form__failed"><?= $_SESSION['action_status']['user_register_error'] ?></p>
+        <?php elseif (isset($_SESSION['action_status']['success'])) : ?>
+            <p class="form__main-alert form__success"><?= $_SESSION['action_status']['success'] ?></p>
+        <?php endif; ?>
 
         <div class="form-columns">
             <div class="form-column">
@@ -8,7 +15,7 @@
                     <input class="form-group__input" type="text" name="nombre" value="<?= isset($_SESSION['current_data']['nombre']) ? $_SESSION['current_data']['nombre'] : '' ?>" required>
                     <label class="form-group__label">Nombre</label>
                     <?php if (isset($_SESSION['errors']['nombre'])) : ?>
-                        <p class="form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['nombre'] ?></p>
+                        <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['nombre'] ?></p>
                     <?php endif; ?>
                 </div>
 
@@ -17,7 +24,7 @@
                     <input class="form-group__input" type="text" name="rol" value="<?= isset($_SESSION['current_data']['rol']) ? $_SESSION['current_data']['rol'] : '' ?>" required>
                     <label class="form-group__label">Rol</label>
                     <?php if (isset($_SESSION['errors']['rol'])) : ?>
-                        <p class="form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['rol'] ?></p>
+                        <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['rol'] ?></p>
                     <?php endif; ?>
                 </div>
 
@@ -25,7 +32,7 @@
                     <input class="form-group__input" type="text" name="email" value="<?= isset($_SESSION['current_data']['email']) ? $_SESSION['current_data']['email'] : '' ?>" required>
                     <label class="form-group__label">Correo electrónico</label>
                     <?php if (isset($_SESSION['errors']['correo'])) : ?>
-                        <p class="form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['correo'] ?></p>
+                        <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['correo'] ?></p>
                     <?php endif; ?>
                 </div>
 
@@ -33,9 +40,9 @@
                     <input class="form-group__input" type="password" name="pass" value="<?= isset($_SESSION['current_data']['pass']) ? $_SESSION['current_data']['pass'] : '' ?>" required>
                     <label class="form-group__label">Contraseña</label>
                     <?php if (isset($_SESSION['errors']['contra'])) : ?>
-                        <p class="form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['contra'] ?></p>
+                        <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['contra'] ?></p>
                     <?php elseif (isset($_SESSION['errors']['comparar_contra'])) : ?>
-                        <p class="form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['comparar_contra'] ?></p>
+                        <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['comparar_contra'] ?></p>
                     <?php endif; ?>
                 </div>
 
@@ -43,9 +50,9 @@
                     <input class="form-group__input" type="password" name="confirm_pass" value="<?= isset($_SESSION['current_data']['confirm_pass']) ? $_SESSION['current_data']['confirm_pass'] : '' ?>" required>
                     <label class="form-group__label">Confirmar contraseña</label>
                     <?php if (isset($_SESSION['errors']['confirmar_contra'])) : ?>
-                        <p class="form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['confirmar_contra'] ?></p>
+                        <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['confirmar_contra'] ?></p>
                     <?php elseif (isset($_SESSION['errors']['comparar_contra'])) : ?>
-                        <p class="form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['comparar_contra'] ?></p>
+                        <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['comparar_contra'] ?></p>
                     <?php endif; ?>
                 </div>
             </div>
@@ -55,7 +62,7 @@
                     <input class="form-group__input" type="text" name="departamento" value="<?= isset($_SESSION['current_data']['departamento']) ? $_SESSION['current_data']['departamento'] : '' ?>" required>
                     <label class="form-group__label">Departamento</label>
                     <?php if (isset($_SESSION['errors']['departamento'])) : ?>
-                        <p class="form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['departamento'] ?></p>
+                        <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['departamento'] ?></p>
                     <?php endif; ?>
                 </div>
 
@@ -63,7 +70,7 @@
                     <input class="form-group__input" type="text" name="municipio" value="<?= isset($_SESSION['current_data']['municipio']) ? $_SESSION['current_data']['municipio'] : '' ?>" required>
                     <label class="form-group__label">Municipio</label>
                     <?php if (isset($_SESSION['errors']['municipio'])) : ?>
-                        <p class="form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['municipio'] ?></p>
+                        <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['municipio'] ?></p>
                     <?php endif; ?>
                 </div>
 
@@ -71,7 +78,7 @@
                     <input class="form-group__input" type="text" name="direccion" value="<?= isset($_SESSION['current_data']['direccion']) ? $_SESSION['current_data']['direccion'] : '' ?>" required>
                     <label class="form-group__label">Direccion</label>
                     <?php if (isset($_SESSION['errors']['direccion'])) : ?>
-                        <p class="form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['direccion'] ?></p>
+                        <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['direccion'] ?></p>
                     <?php endif; ?>
                 </div>
             </div>
@@ -84,4 +91,6 @@
     </form>
     <?php eliminar_session('errors'); ?>
     <?php eliminar_session('current_data'); ?>
+    <?php eliminar_session('action_status'); ?>
+    <?php eliminar_session('user_register_error'); ?>
 </section>

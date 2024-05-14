@@ -41,7 +41,7 @@ function validar_email($email){
     return $result;
 }
 
-function validar_contraseña($pass){
+function validar_contra($pass){
     $result = false;
 
     if(empty($pass)){
@@ -55,7 +55,7 @@ function validar_contraseña($pass){
     return $result;
 }
 
-function comparar_contraseña($pass, $confirm_pass){
+function comparar_contra($pass, $confirm_pass){
     $result = false;
 
     if($pass !== $confirm_pass){
