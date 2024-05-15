@@ -1,6 +1,27 @@
 <section class="form-container">
-    <form action="<?= base_url ?>/usuario/registrar" class="form user-form user-register" method="POST">
-        <h2 class="form__title">Registrarse</h2>
+    <?php
+
+    use helpers\Utils;
+
+    if (isset($update) && isset($user) && is_object($user)) {
+        $title = 'Actualizar datos';
+        $main_btn = 'Actualizar';
+        $alternative_btn = 'Eliminar cuenta';
+        $color_btn = 'form-buttons__delete';
+        $create_upate = base_url . 'usuario/registrar&id=' . $user->id;
+    } else {
+        $user = null;
+        $title = 'Registrarse';
+        $main_btn = 'Confirmar';
+        $alternative_btn = 'Iniciar sesión';
+        $color_btn = 'form-buttons__alternative';
+        $create_upate = base_url . 'usuario/registrar';
+    }
+    ?>
+
+    <!-- actualizar -->
+    <form action="<?= $create_upate ?>" class="form user-form user-register" method="POST">
+        <h2 class="form__title"><?= $title ?></h2>
         <?php if (isset($_SESSION['action_status']['failed'])) : ?>
             <p class="form__main-alert form__failed"><?= $_SESSION['action_status']['failed'] ?></p>
         <?php elseif (isset($_SESSION['user_register_error'])) : ?>
@@ -12,7 +33,7 @@
         <div class="form-columns">
             <div class="form-column">
                 <div class="form-group">
-                    <input class="form-group__input" type="text" name="nombre" value="<?= isset($_SESSION['current_data']['nombre']) ? $_SESSION['current_data']['nombre'] : '' ?>" required>
+                    <input class="form-group__input" type="text" name="name" value="<?= Utils::showUserFormErrors('name', $user);  ?>" required>
                     <label class="form-group__label">Nombre</label>
                     <?php if (isset($_SESSION['errors']['nombre'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['nombre'] ?></p>
@@ -20,16 +41,18 @@
                 </div>
 
                 <!-- validar si es admin -->
-                <div class="form-group">
-                    <input class="form-group__input" type="text" name="rol" value="<?= isset($_SESSION['current_data']['rol']) ? $_SESSION['current_data']['rol'] : '' ?>" required>
-                    <label class="form-group__label">Rol</label>
-                    <?php if (isset($_SESSION['errors']['rol'])) : ?>
-                        <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['rol'] ?></p>
-                    <?php endif; ?>
-                </div>
+                <?php if (Utils::validarAdminSinRedireccion()) : ?>
+                    <div class="form-group">
+                        <input class="form-group__input" type="text" name="role" value="<?= Utils::showUserFormErrors('role', $user); ?>" required>
+                        <label class="form-group__label">Rol</label>
+                        <?php if (isset($_SESSION['errors']['rol'])) : ?>
+                            <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['rol'] ?></p>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
 
                 <div class="form-group">
-                    <input class="form-group__input" type="text" name="email" value="<?= isset($_SESSION['current_data']['email']) ? $_SESSION['current_data']['email'] : '' ?>" required>
+                    <input class="form-group__input" type="text" name="mail" value="<?= Utils::showUserFormErrors('mail', $user) ?>" required>
                     <label class="form-group__label">Correo electrónico</label>
                     <?php if (isset($_SESSION['errors']['correo'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['correo'] ?></p>
@@ -37,7 +60,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input class="form-group__input" type="password" name="pass" value="<?= isset($_SESSION['current_data']['pass']) ? $_SESSION['current_data']['pass'] : '' ?>" required>
+                    <input class="form-group__input" type="password" name="password" required>
                     <label class="form-group__label">Contraseña</label>
                     <?php if (isset($_SESSION['errors']['contra'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['contra'] ?></p>
@@ -47,7 +70,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input class="form-group__input" type="password" name="confirm_pass" value="<?= isset($_SESSION['current_data']['confirm_pass']) ? $_SESSION['current_data']['confirm_pass'] : '' ?>" required>
+                    <input class="form-group__input" type="password" name="confirm_pass" required>
                     <label class="form-group__label">Confirmar contraseña</label>
                     <?php if (isset($_SESSION['errors']['confirmar_contra'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['confirmar_contra'] ?></p>
@@ -59,7 +82,7 @@
 
             <div class="form-column">
                 <div class="form-group">
-                    <input class="form-group__input" type="text" name="departamento" value="<?= isset($_SESSION['current_data']['departamento']) ? $_SESSION['current_data']['departamento'] : '' ?>" required>
+                    <input class="form-group__input" type="text" name="department" value="<?= Utils::showUserFormErrors('department', $user); ?>" required>
                     <label class="form-group__label">Departamento</label>
                     <?php if (isset($_SESSION['errors']['departamento'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['departamento'] ?></p>
@@ -67,7 +90,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input class="form-group__input" type="text" name="municipio" value="<?= isset($_SESSION['current_data']['municipio']) ? $_SESSION['current_data']['municipio'] : '' ?>" required>
+                    <input class="form-group__input" type="text" name="city" value="<?= Utils::showUserFormErrors('city', $user); ?>" required>
                     <label class="form-group__label">Municipio</label>
                     <?php if (isset($_SESSION['errors']['municipio'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['municipio'] ?></p>
@@ -75,7 +98,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input class="form-group__input" type="text" name="direccion" value="<?= isset($_SESSION['current_data']['direccion']) ? $_SESSION['current_data']['direccion'] : '' ?>" required>
+                    <input class="form-group__input" type="text" name="address" value="<?= Utils::showUserFormErrors('address', $user); ?>" required>
                     <label class="form-group__label">Direccion</label>
                     <?php if (isset($_SESSION['errors']['direccion'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['direccion'] ?></p>
@@ -85,12 +108,17 @@
         </div>
 
         <div class="form-buttons">
-            <input class="form-button form-buttons__submit" type="submit" value="Confirmar">
-            <a class="form-button form-button form-buttons__alternative" href="<?= base_url ?>usuario/index">Iniciar sesión</a>
+            <input class="form-button form-buttons__submit" type="submit" value="<?= $main_btn ?>">
+            <a class="form-button form-button <?= $color_btn ?>" href="<?= base_url ?>usuario/index"><?= $alternative_btn ?></a>
         </div>
     </form>
-    <?php eliminar_session('errors'); ?>
-    <?php eliminar_session('current_data'); ?>
-    <?php eliminar_session('action_status'); ?>
-    <?php eliminar_session('user_register_error'); ?>
+
+
+
+    <?php
+    Utils::eliminarSesion('errors');
+    Utils::eliminarSesion('current_data');
+    Utils::eliminarSesion('action_status');
+    Utils::eliminarSesion('user_register_error');
+    ?>
 </section>

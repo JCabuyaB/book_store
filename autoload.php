@@ -1,4 +1,5 @@
 <?php
+use helpers\Utils;
 require_once 'helpers/utils.php';
 
 spl_autoload_register(
@@ -8,7 +9,7 @@ spl_autoload_register(
         if(file_exists($path)){
             require_once $path;
         }else{
-            showError();
+            Utils::showError();
         }
     }
 );

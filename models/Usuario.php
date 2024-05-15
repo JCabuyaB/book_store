@@ -136,7 +136,7 @@ class Usuario
     
     // metodos del usuario
     #region  CRUD
-    public function verificar_existencia_usuario(){
+    public function verificarExistenciaUsuario(){
         //flag 
         $result = false;
 
@@ -152,19 +152,11 @@ class Usuario
         return $result;
     }
 
-    public function crear_usuario(?string $rol_data){
+    public function insertarUsuario(){
         // flag para validar en el controlador
         $result = false;
-                
-        if(isset($rol_data) && is_string($rol_data)){
-            $rol = $rol_data;
-        }else{
-            $rol = 'user';
-        }
 
-        $this->setRol($rol);
-
-        $query = "INSERT INTO tbl_usuarios VALUES(null, '{$this->nombre}', '{$this->getRol()}', '{$this->correo}', '{$this->contra}', '{$this->departamento}', '{$this->municipio}', '{$this->direccion}');";
+        $query = "INSERT INTO tbl_usuarios VALUES(null, '{$this->nombre}', '{$this->rol}', '{$this->correo}', '{$this->contra}', '{$this->departamento}', '{$this->municipio}', '{$this->direccion}');";
 
         $connection = $this->db->getConnection();
         $insert = $connection->query($query);
@@ -176,15 +168,42 @@ class Usuario
         return $result;
     } 
     
-    public function listar_usuarios(){
+    // public function listarUsuarios(){
 
+    // }
+
+    public function consultaUsuario(){
+        $result = false;
+
+        $query = "SELECT * FROM tbl_usuarios WHERE id = {$this->getId()};";
+
+        $connection = $this->db->getConnection();
+
+        $search =  $connection->query($query);
+
+        if($search && $search->num_rows == 1){
+            $result = $search->fetch_object();
+        }
+
+        return $result;
     }
 
-    public  function actualizar_usuario(){
+    public  function actualizarUsuario(){
+        $result = false;
 
+        $query = "UPDATE tbl_usuarios SET name = '{$this->getNombre()}', role = '{$this->getRol()}', mail = '{$this->getCorreo()}', password = '{$this->getContra()}', department = '{$this->getDepartamento()}', city = '{$this->getMunicipio()}', address = '{$this->getDireccion()}' WHERE id = {$this->getId()};";
+
+        $connection = $this->db->getConnection();
+        $update = $connection->query($query);
+
+        if($update && $connection->affected_rows > 0){
+            $result = true;
+        }
+
+        return $result;
     }
 
-    public function eliminar_usuario(){
+    public function eliminarUsuario(){
 
     }
     #endregion

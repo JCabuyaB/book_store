@@ -1,40 +1,41 @@
-<?php 
+<?php
 session_start();
-require_once 'autoload.php'; 
-require_once 'helpers/utils.php'; 
-require_once 'config/parameters.php'; 
+require_once 'autoload.php';
+require_once 'config/parameters.php';
 require_once 'views/layout/header.php';
+
+// uses
+use  helpers\Utils;
 
 // controlador lateral
 // controlador
-if(isset($_GET['controller'])){
+if (isset($_GET['controller'])) {
     $controller_name = $_GET['controller'];
-}elseif(!isset($_GET['controller'])){
+} elseif (!isset($_GET['controller'])) {
     $controller_name = default_controller;
 }
 
 // crear objeto y ejecutar accion
-if(isset($controller_name) && !empty($controller_name)){
-    $controller_context = controller_context.$controller_name;
+if (isset($controller_name) && !empty($controller_name)) {
+    $controller_context = controller_context . $controller_name;
     $controller = new $controller_context;
 
     // accion
-    if(isset($_GET['action'])){
+    if (isset($_GET['action']) && !empty($_GET['action'])) {
         $action = $_GET['action'];
-    }else{
+    } else {
         $action = default_action;
     }
 
     // verificar si existe el metodo
-    if(method_exists($controller, $action)){
+    if (method_exists($controller, $action)) {
         $controller->$action();
-    }else{
-        showError();
+    } else {
+        Utils::showError();
     }
-}else{
-    showError();
+} else {
+    Utils::showError();
 }
 
 
-require_once 'views/layout/footer.php'; 
-?>
+require_once 'views/layout/footer.php';

@@ -9,6 +9,7 @@
     RewriteCond %{SCRIPT_FILENAME} !-d
     RewriteCond %{SCRIPT_FILENAME} !-f
 
+    
     # regla de reescritura
     RewriteRule ^(.*)/(.*) index.php?controller=$1&action=$2
 </IfModule>

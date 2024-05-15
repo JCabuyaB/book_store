@@ -30,7 +30,10 @@
             <a class="form-button form-buttons__alternative" href="<?= base_url ?>usuario/registrarse">Registrarse</a>
         </div>
     </form>
-    <?php eliminar_session('errors'); ?>
-    <?php eliminar_session('action_status'); ?>
-    <?php eliminar_session('current_data'); ?>
+    <?php
+    use Helpers\Utils; 
+    Utils::eliminarSesion('errors');
+    Utils::eliminarSesion('action_status');
+    Utils::eliminarSesion('current_data'); 
+    ?>
 </section>

@@ -29,22 +29,30 @@
 
 <body class="body">
     <header class="header">
-        <nav class="menu">
-            <a href="<?= base_url ?>" class="menu__item">Inicio</a>
-            <a href="#" class="menu__item">database</a>
-            <a href="#" class="menu__item">database</a>
-            <a href="#" class="menu__item">database</a>
-            <a href="#" class="menu__item">database</a>
-            <?php if(isset($_SESSION['user'])) : ?>
-                <ul class="user-menu menu__item--emphasis">
-                    <li class="user-menu__item"><?=$_SESSION['user']->mail?></li>
-                    <ul class="user-submenu">
-                        <li class="user-submenu__item submenu-guide-arrow"><a class="user-submenu__item-text" href="<?=base_url?>usuario/registrarse">Actualizar datos</a></li>
-                        <li class="user-submenu__item"><a class="user-submenu__item-text" href="<?=base_url?>usuario/logout">Cerrar sesión</a></li>
-                    </ul>
-                </ul>
-            <?php else : ?>
-                <a href="<?= base_url ?>usuario/index" class="menu__item menu__item--emphasis">Iniciar Sesión</a>
-            <?php endif; ?>
+        <nav class="nav">
+            <ul class="menu">
+                <li class="menu__item"><a href="<?= base_url ?>" class="menu__item--text">Inicio</a></li>
+                <li class="menu__item"><a href="#" class="menu__item--text">database</a></li>
+                <li class="menu__item"><a href="#" class="menu__item--text">database</a></li>
+                <li class="menu__item"><a href="#" class="menu__item--text">database</a></li>
+                <li class="menu__item"><a href="#" class="menu__item--text">database</a></li>
+                <li class="menu__item"><a href="#" class="menu__item--text">database</a></li>
+                <li class="menu__item menu__item--user-container">
+                    <?php if (isset($_SESSION['user'])) : ?>
+                        <a class="menu__item--text menu__item--main-text" href="#"><?= $_SESSION['user']->mail ?></a>
+                        <ul class="user-menu">
+                            <ul class="user-submenu">
+                                <li class="user-submenu__item submenu-guide-arrow"><a class="user-submenu__item-text user-submenu__item-text--top" href="<?= base_url ?>usuario/actualizar&id=<?= $_SESSION['user']->id ?>">Actualizar datos</a></li>
+                                <li class="user-submenu__item"><a class="user-submenu__item-text" href="<?= base_url ?>usuario/logout">Cerrar sesión</a></li>
+                                <li class="user-submenu__item"><a class="user-submenu__item-text user-submenu__item-text--bottom" href="<?= base_url ?>usuario/logout">Cerrar sesión</a></li>
+                            </ul>
+                        </ul>
+                    <?php else : ?>
+                        <li class="menu__item"><a class="menu__item--text menu__item--emphasis" href="<?= base_url ?>usuario/index">Iniciar Sesión</a></li>
+                    <?php endif; ?>
+                </li>
+            </ul>
         </nav>
+
+        <div class="search">buscare</div>
     </header>

@@ -2,6 +2,7 @@
 
 namespace controllers;
 
+use helpers\Utils;
 use models\Usuario as ModeloUsuario;
 
 class Usuario
@@ -9,11 +10,13 @@ class Usuario
     #region vistas
     public function index()
     {
+        Utils::validarLogout();
         require_once 'views/usuario/login.php';
     }
 
     public function registrarse()
     {
+        Utils::validarLogout();
         require_once 'views/usuario/registro.php';
     }
     #endregion
@@ -23,87 +26,107 @@ class Usuario
     {
         if (isset($_POST)) {
             // variables
-            $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
-            $rol = isset($_POST['rol']) ? $_POST['rol'] : false;
-            $correo = isset($_POST['email']) ? $_POST['email'] : false;
-            $contra = isset($_POST['pass']) ? $_POST['pass'] : false;
+            $nombre = isset($_POST['name']) ? $_POST['name'] : false;
+            $rol = isset($_POST['role']) ? $_POST['role'] : $rol ?? 'user';
+            $correo = isset($_POST['mail']) ? $_POST['mail'] : false;
+            $contra = isset($_POST['password']) ? $_POST['password'] : false;
             $confirmar_contra = isset($_POST['confirm_pass']) ? $_POST['confirm_pass'] : false;
-            $departamento = isset($_POST['departamento']) ? $_POST['departamento'] : false;
-            $municipio = isset($_POST['municipio']) ? $_POST['municipio'] : false;
-            $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : false;
+            $departamento = isset($_POST['department']) ? $_POST['department'] : false;
+            $municipio = isset($_POST['city']) ? $_POST['city'] : false;
+            $direccion = isset($_POST['address']) ? $_POST['address'] : false;
             // errores
             $errors = array();
 
             // validar datos
-            $validar_nombre = validar_texto($nombre, 'nombre');
+            $validar_nombre = Utils::validarTexto($nombre, 'nombre');
             if ($validar_nombre) {
                 $errors['nombre'] = $validar_nombre;
             }
 
-            $validar_rol = validar_texto($rol, 'rol');
+            $validar_rol = Utils::validarTexto($rol, 'rol');
             if ($validar_rol) {
                 $errors['rol'] = $validar_rol;
             }
 
-            $validar_correo = validar_email($correo);
+            $validar_correo = Utils::validarEmail($correo);
             if ($validar_correo) {
                 $errors['correo'] = $validar_correo;
             }
 
-            $validar_contra = validar_contra($contra);
+            $validar_contra = Utils::validarContra($contra);
             if ($validar_contra) {
                 $errors['contra'] = $validar_contra;
             }
 
-            $validar_confirmar_contra = validar_contra($confirmar_contra);
+            $validar_confirmar_contra = Utils::validarContra($confirmar_contra);
             if ($validar_confirmar_contra) {
                 $errors['confirmar_contra'] = $validar_confirmar_contra;
             }
 
-            $validar_departamento = validar_texto($departamento, 'departamento');
+            $validar_departamento = Utils::validarTexto($departamento, 'departamento');
             if ($validar_departamento) {
                 $errors['departamento'] = $validar_departamento;
             }
 
-            $validar_municipio = validar_texto($municipio, 'municipio');
+            $validar_municipio = Utils::validarTexto($municipio, 'municipio');
             if ($validar_municipio) {
                 $errors['municipio'] = $validar_municipio;
             }
 
-            $comparar_contra = comparar_contra($contra, $confirmar_contra);
+            $comparar_contra = Utils::compararContra($contra, $confirmar_contra);
             if ($comparar_contra) {
                 $errors['comparar_contra'] = $comparar_contra;
             }
 
             if (empty($direccion)) {
-                $errors['direccion'] = "La direccion no puede estar vacía";
+                $errors['direccion'] = 'La direccion no puede estar vacía';
             }
 
             // hacer una accion en base a si hay errores o  no
             if (count($errors) == 0) {
-                // encriptar contraseña
-                $contra_segura = password_hash($contra, PASSWORD_BCRYPT, ['cost' => 4]);
-
-                // insertar registro
+                // instanciar modelo
                 $usuario = new ModeloUsuario();
                 $usuario->setCorreo($correo);
 
-                $existe = $usuario->verificar_existencia_usuario();
+                $existe = $usuario->verificarExistenciaUsuario();
 
                 if ($existe) {
-                    $_SESSION['action_status']['failed'] = "El usuario ya existe";
+                    $_SESSION['action_status']['failed'] = 'El usuario ya existe';
+                    $_SESSION['current_data'] = $_POST;
                 } else {
+                    // encriptar contraseña
+                    $contra_segura = password_hash($contra, PASSWORD_BCRYPT, ['cost' => 4]);
+
                     $usuario->setNombre($nombre);
+                    $usuario->setRol($rol);
                     $usuario->setContra($contra_segura);
                     $usuario->setDepartamento($departamento);
                     $usuario->setMunicipio($municipio);
                     $usuario->setDireccion($direccion);
 
-                    // funcion para insertar
-                    $result = $usuario->crear_usuario(null);
+                    // validar si hay id para la actualizacion o no
+                    if (isset($_GET['id'])) {
+                        $id_usuario = $_GET['id'];
+                        $usuario->setId($id_usuario);
+                        // actualizar usuario
+                        $result = $usuario->actualizarUsuario();
 
-                    if ($result) {
+                        $user_update = $usuario->consultaUsuario();
+
+                        $_SESSION['user'] = $user_update;
+                    } else {
+                        // insertar usuario
+                        $result = $usuario->insertarUsuario();
+                    }
+
+                    if ($result && !isset($_GET['id'])) {
                         $_SESSION['action_status']['success'] = 'Usuario registrado';
+                    } elseif ($result && isset($_GET['id'])) {
+                        $_SESSION['action_status']['success'] = 'Usuario actualizado';
+                        $_SESSION['current_data'] = $_POST;
+                        $user = $usuario->consultaUsuario();
+
+                        // $_SESSION['user'] = $user;
                     } else {
                         $_SESSION['action_status']['failed'] = 'Registro fallido';
                     }
@@ -116,7 +139,25 @@ class Usuario
             $_SESSION['user_register_error'] = 'Registro fallido';
         }
 
-        header('Location: ' . base_url . 'usuario/registrarse');
+        if (isset($_GET['id'])) {
+            header('Location: ' . base_url . '/usuario/actualizar&id=' . $_GET['id']);
+        } else {
+            header('Location: ' . base_url . 'usuario/registrarse');
+        }
+    }
+
+    public function actualizar()
+    {
+        Utils::validarLogin();
+        if (isset($_GET['id'])) {
+            $update = true;
+
+            $user = $_SESSION['user'];
+
+            require_once 'views/usuario/registro.php';
+        } else {
+            header('Location: ' . base_url);
+        }
     }
     #endregion
 
@@ -128,12 +169,12 @@ class Usuario
 
             $errors = array();
 
-            $usuario_validado = validar_email($usuario);
+            $usuario_validado = Utils::validarEmail($usuario);
             if ($usuario_validado) {
                 $errors['usuario'] = $usuario_validado;
             }
 
-            $contra_validada = validar_contra($contra);
+            $contra_validada = utils::validarContra($contra);
             if ($contra_validada) {
                 $errors['contra'] = $contra_validada;
             }
@@ -163,10 +204,11 @@ class Usuario
         header('Location: ' . base_url . 'usuario/index');
     }
 
-    public function logout(){
-        if(isset($_SESSION['user'])){
+    public function logout()
+    {
+        if (isset($_SESSION['user'])) {
             unset($_SESSION['user']);
         }
-        header('Location: ' . base_url .'usuario/index');
+        header('Location: ' . base_url . 'usuario/index');
     }
 }
