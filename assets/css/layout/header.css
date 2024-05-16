@@ -145,6 +145,10 @@
     pointer-events: all;
 }
 
+.menu__item--main-text{
+    text-transform: lowercase;
+}
+
 .menu__item--user-container:hover .menu__item--main-text{
     background: var(--color-white);
     color: var(--color-primary);

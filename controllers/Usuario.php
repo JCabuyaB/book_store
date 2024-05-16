@@ -19,6 +19,11 @@ class Usuario
         Utils::validarLogout();
         require_once 'views/usuario/registro.php';
     }
+
+    public function eliminar()
+    {
+        require_once 'views/usuario/eliminar.php';
+    }
     #endregion
 
     #region CRUD
@@ -158,6 +163,47 @@ class Usuario
         } else {
             header('Location: ' . base_url);
         }
+    }
+
+    public function eliminar_cuenta()
+    {
+        if (isset($_POST) || isset($_SESSION['user_flag'])) {
+            $contra = isset($_POST['delete_pass']) ? $_POST['delete_pass'] : '';
+
+            $errors = array();
+
+            if (empty($contra)) {
+                $errors['contra'] = "La contraseña no puede estar vacía";
+            }
+
+            $user_pass = $_SESSION['user']->password;
+            $validar_pass = password_verify($contra, $user_pass);
+            if(!$validar_pass){
+                $errors['pass_confirm'] = "Credenciales incorrectas";
+            }
+
+            if (count($errors) == 0) {
+                $user_id = $_SESSION['user']->id;
+
+                $usuario = new ModeloUsuario();
+                $usuario->setId($user_id);
+                $eliminar = $usuario->eliminarUsuario();
+
+                if($eliminar){
+                    $_SESSION['action_status']['success'] = 'Usuario eliminado';
+                    unset($_SESSION['user']);
+                    $_SESSION['user_flag'] = true;
+                }else{
+                    $_SESSION['action_status']['failed'] = 'No se pudo eliminar el usuario';
+                    $_SESSION['user_flag'] = false;
+                }
+            }else{
+                $_SESSION['errors'] = $errors;
+            }
+        }else{
+            $_SESSION['user_delete_error'] = 'Ocurrió un error al procesar la solicutud';
+        }
+        header('Location: ' . base_url . 'usuario/eliminar');
     }
     #endregion
 

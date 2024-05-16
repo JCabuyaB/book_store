@@ -1,4 +1,5 @@
 <?php
+
 namespace models;
 
 use config\Database;
@@ -20,9 +21,10 @@ class Usuario
         $this->db = Database::getInstance();
     }
 
-    private function escapar_datos($dato){
+    private function escapar_datos($dato)
+    {
         $connection = $this->db->getConnection();
-        
+
 
         $escape_result = $connection->real_escape_string($dato);
 
@@ -133,10 +135,11 @@ class Usuario
         return $this;
     }
     #endregion
-    
+
     // metodos del usuario
     #region  CRUD
-    public function verificarExistenciaUsuario(){
+    public function verificarExistenciaUsuario()
+    {
         //flag 
         $result = false;
 
@@ -145,14 +148,15 @@ class Usuario
         $connection = $this->db->getConnection();
         $existe = $connection->query($query);
 
-        if($existe && $existe->num_rows == 1){
+        if ($existe && $existe->num_rows == 1) {
             $result = true;
         }
 
         return $result;
     }
 
-    public function insertarUsuario(){
+    public function insertarUsuario()
+    {
         // flag para validar en el controlador
         $result = false;
 
@@ -161,18 +165,15 @@ class Usuario
         $connection = $this->db->getConnection();
         $insert = $connection->query($query);
 
-        if($insert && $connection->affected_rows > 0){
+        if ($insert && $connection->affected_rows > 0) {
             $result = true;
         }
 
         return $result;
-    } 
-    
-    // public function listarUsuarios(){
+    }
 
-    // }
-
-    public function consultaUsuario(){
+    public function consultaUsuario()
+    {
         $result = false;
 
         $query = "SELECT * FROM tbl_usuarios WHERE id = {$this->getId()};";
@@ -181,14 +182,15 @@ class Usuario
 
         $search =  $connection->query($query);
 
-        if($search && $search->num_rows == 1){
+        if ($search && $search->num_rows == 1) {
             $result = $search->fetch_object();
         }
 
         return $result;
     }
 
-    public  function actualizarUsuario(){
+    public  function actualizarUsuario()
+    {
         $result = false;
 
         $query = "UPDATE tbl_usuarios SET name = '{$this->getNombre()}', role = '{$this->getRol()}', mail = '{$this->getCorreo()}', password = '{$this->getContra()}', department = '{$this->getDepartamento()}', city = '{$this->getMunicipio()}', address = '{$this->getDireccion()}' WHERE id = {$this->getId()};";
@@ -196,37 +198,53 @@ class Usuario
         $connection = $this->db->getConnection();
         $update = $connection->query($query);
 
-        if($update && $connection->affected_rows > 0){
+        if ($update && $connection->affected_rows > 0) {
             $result = true;
         }
 
         return $result;
     }
 
-    public function eliminarUsuario(){
+    public function eliminarUsuario()
+    {
+        $retult = false;
+        $query = "DELETE FROM tbl_usuarios WHERE id = {$this->getId()};";
 
+        $connection = $this->db->getConnection();
+        $eliminar = $connection->query($query);
+
+        if ($eliminar && $connection->affected_rows > 0) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    public function listarUsuarios(){
+        $query = "SELECT * FROM usuarios WHERE id <> '{$this->getId()}';";
     }
     #endregion
 
-    public function iniciar_sesion(){
+    public function iniciar_sesion()
+    {
         $result = false;
 
         $query = "SELECT * FROM tbl_usuarios WHERE mail = '{$this->getCorreo()}';";
-        
+
         $connection = $this->db->getConnection();
         $existe = $connection->query($query);
 
-        if($existe && $existe->num_rows == 1){
+        if ($existe && $existe->num_rows == 1) {
             $user = $existe->fetch_object();
 
             $confirm_user = password_verify($this->getContra(), $user->password);
 
-            if($confirm_user){
+            if ($confirm_user) {
                 $result = $user;
-            }else{
+            } else {
                 $result = "Credenciales incorrectas";
             }
-        }else{
+        } else {
             $result = "El usuario no existe";
         }
 

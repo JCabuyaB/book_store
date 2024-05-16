@@ -9,6 +9,7 @@
         $alternative_btn = 'Eliminar cuenta';
         $color_btn = 'form-buttons__delete';
         $create_upate = base_url . 'usuario/registrar&id=' . $user->id;
+        $alternative_url = base_url . 'usuario/eliminar';
     } else {
         $user = null;
         $title = 'Registrarse';
@@ -16,6 +17,7 @@
         $alternative_btn = 'Iniciar sesión';
         $color_btn = 'form-buttons__alternative';
         $create_upate = base_url . 'usuario/registrar';
+        $alternative_url = base_url . 'usuario/index';
     }
     ?>
 
@@ -109,7 +111,7 @@
 
         <div class="form-buttons">
             <input class="form-button form-buttons__submit" type="submit" value="<?= $main_btn ?>">
-            <a class="form-button form-button <?= $color_btn ?>" href="<?= base_url ?>usuario/index"><?= $alternative_btn ?></a>
+            <a class="form-button form-button <?= $color_btn ?>" href="<?= $alternative_url ?>"><?= $alternative_btn ?></a>
         </div>
     </form>
 
