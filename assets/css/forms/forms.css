@@ -21,13 +21,13 @@
 }
 
 .form__failed{
-    background: var(--color-failed);
-    color: var(--color-white);
+    background: var(--color-failed) !important;
+    color: var(--color-white) !important;
 }
 
 .form__success{
-    background: var(--color-success);
-    color: var(--color-white);
+    background: var(--color-success) !important;
+    color: var(--color-white) !important;
 }
 
 .form__main-alert{
@@ -53,6 +53,8 @@
 }
 
 .form-group__label{
+    display: flex;
+    gap: 5px;
     font-size: 16px;
     font-family: var(--font-primary);
     position: absolute;
@@ -188,4 +190,88 @@
 
 .user-form.user-register{
     width: 700px;
+}
+
+/* categorias */
+.form-container.categorias{
+    display: flex;
+    align-items: flex-start;
+}
+
+
+/* tables */
+.table-container{
+    margin-inline: auto;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    overflow: hidden;
+}
+
+.table{
+    display: block;
+    /* flex-direction: column; */
+    background: var(--color-white);
+    border-collapse: collapse;
+    max-height: 350px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+}
+
+.table thead th{
+    text-align: left;
+    font-weight: 400;
+    font-size: 20px;
+    border-bottom: 3px solid var(--color-primary);
+}
+
+.table tr td,
+.table tr th{
+    padding: 20px;
+}
+
+.table tbody tr:nth-child(odd){
+    background: #ededed;
+}
+
+.table .acciones{
+    display: flex;
+    justify-content: space-between;
+}
+
+#table-alert td{
+    padding: 5px 20px;
+    font-size: 14px;
+}
+
+
+.table-button{
+    padding: 10px;
+    font-size: 15px;
+    text-decoration: none;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    transition: all .3s;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+}
+
+.table-button:hover{
+    opacity: .7;
+}
+
+.table.categorias thead th:first-child{
+    width: 300px;
+    max-width: 300px;
+}
+
+.table.categorias thead th:last-child{
+    width: 200px;
 }

@@ -77,6 +77,7 @@ class Utils
         }
     }
     #endregion
+    
     #region sesiones
     //eliminar session
     public static function eliminarSesion($session_name)

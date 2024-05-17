@@ -17,7 +17,7 @@ class Libro
 
     public function __construct()
     {
-        $this->base_datos = Database::connect();
+        $this->base_datos = Database::getInstance();
     }
 
 

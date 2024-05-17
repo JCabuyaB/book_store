@@ -36,7 +36,7 @@
             <div class="form-column">
                 <div class="form-group">
                     <input class="form-group__input" type="text" name="name" value="<?= Utils::showUserFormErrors('name', $user);  ?>" required>
-                    <label class="form-group__label">Nombre</label>
+                    <label class="form-group__label"><i class="bi bi-person-fill"></i>Nombre</label>
                     <?php if (isset($_SESSION['errors']['nombre'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['nombre'] ?></p>
                     <?php endif; ?>
@@ -55,7 +55,7 @@
 
                 <div class="form-group">
                     <input class="form-group__input" type="text" name="mail" value="<?= Utils::showUserFormErrors('mail', $user) ?>" required>
-                    <label class="form-group__label">Correo electrónico</label>
+                    <label class="form-group__label"><i class="bi bi-envelope-at-fill"></i>Correo electrónico</label>
                     <?php if (isset($_SESSION['errors']['correo'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['correo'] ?></p>
                     <?php endif; ?>
@@ -63,7 +63,7 @@
 
                 <div class="form-group">
                     <input class="form-group__input" type="password" name="password" required>
-                    <label class="form-group__label">Contraseña</label>
+                    <label class="form-group__label"><i class="bi bi-person-fill-lock"></i>Contraseña</label>
                     <?php if (isset($_SESSION['errors']['contra'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['contra'] ?></p>
                     <?php elseif (isset($_SESSION['errors']['comparar_contra'])) : ?>
@@ -73,7 +73,7 @@
 
                 <div class="form-group">
                     <input class="form-group__input" type="password" name="confirm_pass" required>
-                    <label class="form-group__label">Confirmar contraseña</label>
+                    <label class="form-group__label"><i class="bi bi-person-fill-lock"></i>Confirmar contraseña</label>
                     <?php if (isset($_SESSION['errors']['confirmar_contra'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['confirmar_contra'] ?></p>
                     <?php elseif (isset($_SESSION['errors']['comparar_contra'])) : ?>
@@ -85,7 +85,7 @@
             <div class="form-column">
                 <div class="form-group">
                     <input class="form-group__input" type="text" name="department" value="<?= Utils::showUserFormErrors('department', $user); ?>" required>
-                    <label class="form-group__label">Departamento</label>
+                    <label class="form-group__label"><i class="bi bi-geo-alt-fill"></i>Departamento</label>
                     <?php if (isset($_SESSION['errors']['departamento'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['departamento'] ?></p>
                     <?php endif; ?>
@@ -93,7 +93,7 @@
 
                 <div class="form-group">
                     <input class="form-group__input" type="text" name="city" value="<?= Utils::showUserFormErrors('city', $user); ?>" required>
-                    <label class="form-group__label">Municipio</label>
+                    <label class="form-group__label"><i class="bi bi-geo-alt-fill"></i>Municipio</label>
                     <?php if (isset($_SESSION['errors']['municipio'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['municipio'] ?></p>
                     <?php endif; ?>
@@ -101,7 +101,7 @@
 
                 <div class="form-group">
                     <input class="form-group__input" type="text" name="address" value="<?= Utils::showUserFormErrors('address', $user); ?>" required>
-                    <label class="form-group__label">Direccion</label>
+                    <label class="form-group__label"><i class="bi bi-house-door-fill"></i>Direccion</label>
                     <?php if (isset($_SESSION['errors']['direccion'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['direccion'] ?></p>
                     <?php endif; ?>

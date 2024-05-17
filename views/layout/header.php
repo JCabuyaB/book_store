@@ -21,6 +21,7 @@
 
     <!-- estilos paginas -->
     <link rel="stylesheet" href="<?= base_url ?>assets/css/landing/landing.css">
+    <link rel="stylesheet" href="<?= base_url ?>assets/css/usuario/admin.css">
     <link rel="stylesheet" href="<?= base_url ?>assets/css/errors/errors.css">
     <link rel="stylesheet" href="<?= base_url ?>assets/css/books/books.css">
     <link rel="stylesheet" href="<?= base_url ?>assets/css/general.css">
@@ -43,16 +44,25 @@
                         <ul class="user-menu">
                             <ul class="user-submenu">
                                 <li class="user-submenu__item submenu-guide-arrow"><a class="user-submenu__item-text user-submenu__item-text--top" href="<?= base_url ?>usuario/actualizar&id=<?= $_SESSION['user']->id ?>">Mi cuenta</a></li>
-                                <li class="user-submenu__item"><a class="user-submenu__item-text" href="<?= base_url ?>usuario/logout">Cerrar sesión</a></li>
+                                <?php if (isset($_SESSION['admin'])) : ?>
+                                    <li class="user-submenu__item"><a class="user-submenu__item-text" href="<?= base_url ?>usuario/administrar">Administración</a></li>
+                                <?php else : ?>
+                                    <li class="user-submenu__item"><a class="user-submenu__item-text" href="<?= base_url ?>usuario/administrar">Mis pedidos</a></li>
+                                <?php endif; ?>
                                 <li class="user-submenu__item"><a class="user-submenu__item-text user-submenu__item-text--bottom" href="<?= base_url ?>usuario/logout">Cerrar sesión</a></li>
                             </ul>
                         </ul>
                     <?php else : ?>
-                        <li class="menu__item"><a class="menu__item--text menu__item--emphasis" href="<?= base_url ?>usuario/index">Iniciar Sesión</a></li>
-                    <?php endif; ?>
-                </li>
+                <li class="menu__item"><a class="menu__item--text menu__item--emphasis" href="<?= base_url ?>usuario/index">Iniciar Sesión</a></li>
+            <?php endif; ?>
+            </li>
             </ul>
         </nav>
 
-        <div class="search">buscare</div>
+        <div class="search">
+            <form action="<?= base_url ?>libro/buscar" class="search-form" autocomplete="off">
+                <input type="text" name="busqueda" class="search-form__input" placeholder="buscar libro">
+                <input type="submit" value="Buscar" class="search-form__button">
+            </form>
+        </div>
     </header>

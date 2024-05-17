@@ -1,0 +1,94 @@
+.admin-panel{
+    display: flex;
+    width: 100vw;
+    margin-inline: auto;
+    overflow: hidden;
+    height: calc(100vh - 146px);
+}
+
+.admin-panel-column{
+    position: relative;
+    display: block;
+    text-decoration: none;
+    width: 0;
+    flex-grow: 1;
+    opacity: .7;
+    display: grid;
+    place-content: center;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    z-index: 1;
+}
+
+.admin-panel-column.categoria{
+    background: url('../../img/page/admin/categorias.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.admin-panel-column.editorial{
+    background: url('../../img/page/admin/edit.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.admin-panel-column.libro{
+    background: url('../../img/page/admin/libro.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.admin-panel-column.usuario{
+    background: url('../../img/page/admin/usuarios.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.admin-panel-column.pedido{
+    background: url('../../img/page/admin/pedidos.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.admin-panel-column__title{
+    color: var(--color-white);
+    font-size: 35px;
+    font-weight: 300;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+}
+
+.admin-panel-column::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to top, #176c6c 0%, #330867 100%);
+    z-index: -1;
+    transition: background .3s ease;
+    -webkit-transition: background .3s ease;
+    -moz-transition: background .3s ease;
+    -ms-transition: background .3s ease;
+    -o-transition: background .3s ease;
+}
+
+.admin-panel-column:hover{
+    width: 300px;
+    opacity: 1;
+    filter: contrast(120%);
+    -webkit-filter: contrast(120%);
+}
+
+.admin-panel-column:hover .admin-panel-column__title{
+    font-size: 40px;
+    letter-spacing: 1px;
+}
+
+.admin-panel-column:hover.admin-panel-column::after{
+    background: rgba(0, 0, 0, .5);
+}

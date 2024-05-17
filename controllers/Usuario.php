@@ -24,6 +24,12 @@ class Usuario
     {
         require_once 'views/usuario/eliminar.php';
     }
+
+    public function administrar()
+    {
+        Utils::validarAdmin();
+        require_once 'views/usuario/administrar.php';
+    }
     #endregion
 
     #region CRUD
@@ -32,7 +38,7 @@ class Usuario
         if (isset($_POST)) {
             // variables
             $nombre = isset($_POST['name']) ? $_POST['name'] : false;
-            $rol = isset($_POST['role']) ? $_POST['role'] : $rol ?? 'user';
+            $rol = isset($_POST['role']) ? $_POST['role'] : $rol??'user';
             $correo = isset($_POST['mail']) ? $_POST['mail'] : false;
             $contra = isset($_POST['password']) ? $_POST['password'] : false;
             $confirmar_contra = isset($_POST['confirm_pass']) ? $_POST['confirm_pass'] : false;
@@ -129,9 +135,6 @@ class Usuario
                     } elseif ($result && isset($_GET['id'])) {
                         $_SESSION['action_status']['success'] = 'Usuario actualizado';
                         $_SESSION['current_data'] = $_POST;
-                        $user = $usuario->consultaUsuario();
-
-                        // $_SESSION['user'] = $user;
                     } else {
                         $_SESSION['action_status']['failed'] = 'Registro fallido';
                     }
@@ -161,7 +164,7 @@ class Usuario
 
             require_once 'views/usuario/registro.php';
         } else {
-            header('Location: ' . base_url);
+            Utils::redirectHome();
         }
     }
 
@@ -178,7 +181,7 @@ class Usuario
 
             $user_pass = $_SESSION['user']->password;
             $validar_pass = password_verify($contra, $user_pass);
-            if(!$validar_pass){
+            if (!$validar_pass) {
                 $errors['pass_confirm'] = "Credenciales incorrectas";
             }
 
@@ -189,18 +192,18 @@ class Usuario
                 $usuario->setId($user_id);
                 $eliminar = $usuario->eliminarUsuario();
 
-                if($eliminar){
+                if ($eliminar) {
                     $_SESSION['action_status']['success'] = 'Usuario eliminado';
                     unset($_SESSION['user']);
                     $_SESSION['user_flag'] = true;
-                }else{
+                } else {
                     $_SESSION['action_status']['failed'] = 'No se pudo eliminar el usuario';
                     $_SESSION['user_flag'] = false;
                 }
-            }else{
+            } else {
                 $_SESSION['errors'] = $errors;
             }
-        }else{
+        } else {
             $_SESSION['user_delete_error'] = 'Ocurrió un error al procesar la solicutud';
         }
         header('Location: ' . base_url . 'usuario/eliminar');
@@ -234,6 +237,11 @@ class Usuario
 
                 if ($login && is_object($login)) {
                     $_SESSION['user'] = $login;
+
+                    if ($login->role == "admin") {
+                        $_SESSION['admin'] = true;
+                    }
+
                     header('Location: ' . base_url);
                     exit();
                 } else {

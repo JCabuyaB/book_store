@@ -11,7 +11,7 @@
 
         <div class="form-group">
             <input class="form-group__input" type="text" name="email" value="<?= isset($_SESSION['current_data']['email']) ? $_SESSION['current_data']['email'] : '' ?>" required>
-            <label class="form-group__label">Usuario</label>
+            <label class="form-group__label"><i class="bi bi-envelope-at-fill"></i>Usuario</label>
             <?php if (isset($_SESSION['errors']['usuario'])) : ?>
                 <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['usuario'] ?></p>
             <?php endif; ?>
@@ -19,7 +19,7 @@
 
         <div class="form-group">
             <input class="form-group__input" type="password" name="password" value="<?= isset($_SESSION['current_data']['password']) ? $_SESSION['current_data']['password'] : '' ?>" required>
-            <label class="form-group__label">Contraseña</label>
+            <label class="form-group__label"><i class="bi bi-person-fill-lock"></i>Contraseña</label>
             <?php if (isset($_SESSION['errors']['contra'])) : ?>
                 <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['contra'] ?></p>
             <?php endif; ?>

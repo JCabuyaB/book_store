@@ -1,27 +1,27 @@
 <main class="main">
     <section class="books">
         <figure class="book-cover">
-            <img class="book-cover__img" src="uploads/default.jpg" alt="">
+            <img class="book-cover__img" src="<?=base_url?>uploads/default.jpg" alt="">
         </figure>
 
         <figure class="book-cover">
-            <img class="book-cover__img" src="uploads/default.jpg" alt="">
+            <img class="book-cover__img" src="<?=base_url?>uploads/default.jpg" alt="">
         </figure>
 
         <figure class="book-cover">
-            <img class="book-cover__img" src="uploads/default.jpg" alt="">
+            <img class="book-cover__img" src="<?=base_url?>uploads/default.jpg" alt="">
         </figure>
 
         <figure class="book-cover">
-            <img class="book-cover__img" src="uploads/default.jpg" alt="">
+            <img class="book-cover__img" src="<?=base_url?>uploads/default.jpg" alt="">
         </figure>
 
         <figure class="book-cover">
-            <img class="book-cover__img" src="uploads/default.jpg" alt="">
+            <img class="book-cover__img" src="<?=base_url?>uploads/default.jpg" alt="">
         </figure>
 
         <figure class="book-cover">
-            <img class="book-cover__img" src="uploads/default.jpg" alt="">
+            <img class="book-cover__img" src="<?=base_url?>uploads/default.jpg" alt="">
         </figure>
 
         <!-- back face -->
