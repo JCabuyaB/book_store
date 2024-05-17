@@ -3,19 +3,19 @@
         <h2 class="admin-panel-column__title">Categorías</h2>
     </a>
 
-    <a href="" class="admin-panel-column editorial">
+    <a href="<?=base_url?>editorial/" class="admin-panel-column editorial">
         <h2 class="admin-panel-column__title">Editoriales</h2>
     </a>
 
-    <a href="" class="admin-panel-column libro">
+    <a href="<?=base_url?>libro/administrar" class="admin-panel-column libro">
         <h2 class="admin-panel-column__title">Libros</h2>
     </a>
 
-    <a href="" class="admin-panel-column usuario">
+    <a href="<?=base_url?>usuario/usuarios" class="admin-panel-column usuario">
         <h2 class="admin-panel-column__title">Usuarios</h2>
     </a>
 
-    <a href="" class="admin-panel-column pedido">
+    <a href="<?=base_url?>compra/compras" class="admin-panel-column pedido">
         <h2 class="admin-panel-column__title">Pedidos</h2>
     </a>
 

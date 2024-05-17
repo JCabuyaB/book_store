@@ -10,52 +10,69 @@ class Editorial{
 
     public function __construct()
     {
-        $this->base_datos = Database::connect();
+        $this->base_datos = Database::getInstance();
     }
 
     #region GETTERS Y SETTERS
-    // id
-    public function getId()
-    {
-        return $this->id;
+    public function __set($name, $value){
+        return $this->$name = $value;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    // editorial
-    public function getNombre_editorial()
-    {
-        return $this->nombre_editorial;
-    }
-
-    public function setNombre_editorial($nombre_editorial)
-    {
-        $this->nombre_editorial = $nombre_editorial;
-
-        return $this;
+    public function __get($name){
+        return $this->$name;
     }
     #endregion
 
     #region CRUD
-    public function crear_editorial(){
+    public function crearEditorial(){
+        $query = "INSERT INTO tbl_editoriales VALUES(null, '{$this->__get('nombre_editorial')}');";
 
+        $connection = $this->base_datos->getConnection();
+        $insert = $connection->query($query);
+
+        $result = false;
+        if($insert && $connection->affected_rows > 0){
+            $result = true;
+        }
+
+        return $result;
     }
 
-    public function listar_editoriales(){
+    public function actualizarEditorial(){
+        $query = "UPDATE tbl_editoriales SET editorial_name = '{$this->__get('nombre_editorial')}' WHERE id = {$this->__get('id')};";
 
+        $connection = $this->base_datos->getConnection();
+        $update = $connection->query($query);
+
+        $result = false;
+        if($update && $connection->affected_rows > 0){
+            $result = true;
+        }
+
+        return $result;
     }
 
-    public function actualizar_editorial(){
+    public function listarEditoriales(){
+        $query = "SELECT * FROM tbl_editoriales;";
 
+        $connection = $this->base_datos->getConnection();
+        $lista = $connection->query($query);
+
+        return $lista;
     }
 
-    public function eliminar_editorial(){
-        
+    public function eliminarEditorial(){
+        $query = "DELETE FROM tbl_editoriales WHERE id = {$this->__get('id')};";
+
+        $connection = $this->base_datos->getConnection();
+        $delete = $connection->query($query);
+
+        $result = false;
+        if($delete && $connection->affected_rows > 0){
+            $result = true;
+        }
+
+        return $result;
     }
     #rndregion
 }

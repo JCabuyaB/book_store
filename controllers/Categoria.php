@@ -63,6 +63,8 @@ class Categoria
             } else {
                 $_SESSION['delete']['none'] = 'Se eliminó la categoría';
             }
+        }else{
+            $_SESSION['action_error'] = "No se pudo completar la acción";
         }
         header('Location: ' . base_url . 'categoria/index');
     }
@@ -77,7 +79,7 @@ class Categoria
             $id = isset($_POST['id']) ? $_POST['id'] : false;
             $name = isset($_POST['category']) ? $_POST['category'] : false;
 
-            if(!empty($id) && !isset($nombre)){
+            if (!empty($id) && !isset($nombre)) {
                 $categoria = new ModelCategoria();
                 $categoria->__set('id', $id);
                 $categoria->__set('nombre_categoria', $name);
@@ -89,9 +91,11 @@ class Categoria
                 } else {
                     $_SESSION['action_status']['failed'] = 'No se actualizó la categoría';
                 }
+            } else {
+                $_SESSION['action_error'] = "No se pudo completar la acción";
             }
-
-            
+        } else {
+            $_SESSION['action_error'] = "No se pudo completar la acción";
         }
         header('Location: ' . base_url . 'categoria/index');
     }

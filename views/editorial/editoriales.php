@@ -3,9 +3,9 @@
 use helpers\Utils; 
 
 if(isset($_SESSION['action_update'])){
-    $url = base_url . 'libro/editar';
+    $url = base_url . 'editorial/editar';
 }else{
-    $url = base_url . 'libro/crear';
+    $url = base_url . 'editorial/crear';
 }
 
 ?>
@@ -47,15 +47,7 @@ if(isset($_SESSION['action_update'])){
         <table class="table categorias" action="" class="user-form">
             <thead>
                 <tr>
-                    <th>Isbn</th>
-                    <th>Título</th>
-                    <th>Autor</th>
-                    <th>Sinopsis</th>
-                    <th>Imagen</th>
-                    <th>Categoría</th>
                     <th>Editorial</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -103,4 +95,4 @@ if(isset($_SESSION['action_update'])){
     Utils::eliminarSesion('delete');
     Utils::eliminarSesion('action_update');
     ?>
-</section>  
+</section>

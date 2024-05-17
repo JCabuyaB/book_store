@@ -9,6 +9,7 @@ class Libro
     private $titulo;
     private $autor;
     private $sinopsis;
+    private $imagen;
     private $id_categoria;
     private $id_editorial;
     private $precio;
@@ -22,122 +23,41 @@ class Libro
 
 
     #region GETTERS Y  SETTERS
-    // isbn
-    public function getIsbn()
-    {
-        return $this->isbn;
+    public function __get($name){
+        return $this->$name;
     }
-
-    public function setIsbn($isbn)
-    {
-        $this->isbn = $isbn;
-
-        return $this;
-    }
-
-    //  titulo
-    public function getTitulo()
-    {
-        return $this->titulo;
-    }
-
-    public function setTitulo($titulo)
-    {
-        $this->titulo = $titulo;
-
-        return $this;
-    }
-
-    //  autor
-    public function getAutor()
-    {
-        return $this->autor;
-    }
-
-    public function setAutor($autor)
-    {
-        $this->autor = $autor;
-
-        return $this;
-    }
-
-    // sinopsis
-    public function getSinopsis()
-    {
-        return $this->sinopsis;
-    }
-
-    public function setSinopsis($sinopsis)
-    {
-        $this->sinopsis = $sinopsis;
-
-        return $this;
-    }
-
-    // categoria
-    public function getId_categoria()
-    {
-        return $this->id_categoria;
-    }
-
-    public function setId_categoria($id_categoria)
-    {
-        $this->id_categoria = $id_categoria;
-
-        return $this;
-    }
-
-    // editorial
-    public function getId_editorial()
-    {
-        return $this->id_editorial;
-    }
-
-    public function setId_editorial($id_editorial)
-    {
-        $this->id_editorial = $id_editorial;
-
-        return $this;
-    }
-
-    // precio
-    public function getPrecio()
-    {
-        return $this->precio;
-    }
-
-    public function setPrecio($precio)
-    {
-        $this->precio = $precio;
-
-        return $this;
-    }
-
-    // stock
-    public function getStock()
-    {
-        return $this->stock;
-    }
-
-    public function setStock($stock)
-    {
-        $this->stock = $stock;
-
-        return $this;
+    
+    public function __set($name, $value){
+        return $this->$name = $value;
     }
     #endregion
 
     #region  CRUD
-    public function crear_libro(){
+    public function crearLibro(){
+        $query = "INSERT INTO tbl_libros VALUES('{$this->__get('isbn')}', '{$this->__get('titulo')})', '{$this->__get('autor')}', '{$this->__get('sinopsis')}', '{$this->__get('imagen')}', {$this->__get('id_categoria')}, {$this->__get('id_editorial')}, {$this->__get('precio')}, {$this->__get('stock')};";
 
+        $connection = $this->base_datos->getConnection();
+        $save = $connection->query($query);
+
+        $result = false;
+        if($save & $connection->affected_rows > 0){
+            $result = true;
+        }
+
+        return $result;
     }
 
-    public function listar_libros(){
+    public function listarLibros(){
+        $query = "SELECT * FROM tbl_libros";
 
+        $connection = $this->base_datos->getConnection();
+        $search = $connection->query($query);
+
+        return $search;
     }
 
-    public function actualizar_libro(){
-
+    public function actualizarLibro(){
+        $query = "UPDATE tbl_libros SET ISBN = ('{$this->__get('isbn')}', '{$this->__get('titulo')})', '{$this->__get('autor')}', '{$this->__get('sinopsis')}', '{$this->__get('imagen')}', {$this->__get('id_categoria')}, {$this->__get('id_editorial')}, {$this->__get('precio')}, {$this->__get('stock')};";
     }
 
     public function eliminar_libro(){

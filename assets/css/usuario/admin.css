@@ -68,7 +68,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(to top, #176c6c 0%, #330867 100%);
+    background-image: linear-gradient(to top, rgba(23, 108, 108, .5) 0%, rgba(51, 8, 103, .7) 100%);
     z-index: -1;
     transition: background .3s ease;
     -webkit-transition: background .3s ease;
@@ -80,8 +80,8 @@
 .admin-panel-column:hover{
     width: 300px;
     opacity: 1;
-    filter: contrast(120%);
-    -webkit-filter: contrast(120%);
+    filter: contrast(110%);
+    -webkit-filter: contrast(110%);
 }
 
 .admin-panel-column:hover .admin-panel-column__title{
