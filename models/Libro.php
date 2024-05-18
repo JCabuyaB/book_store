@@ -60,8 +60,18 @@ class Libro
         $query = "UPDATE tbl_libros SET ISBN = ('{$this->__get('isbn')}', '{$this->__get('titulo')})', '{$this->__get('autor')}', '{$this->__get('sinopsis')}', '{$this->__get('imagen')}', {$this->__get('id_categoria')}, {$this->__get('id_editorial')}, {$this->__get('precio')}, {$this->__get('stock')};";
     }
 
-    public function eliminar_libro(){
-        
+    public function eliminarLibro(){
+        $query = "DELETE FROM tbl_libros WHERE id = {$this->__get('id')}";
+
+        $connection = $this->base_datos->getConnection();
+        $delete = $connection->query($query);
+
+        $result = false;
+        if($delete && $connection->affected_rows > 0){
+            $result = true;
+        }
+
+        return $result;
     }
     #endregion
 }

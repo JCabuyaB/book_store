@@ -1,16 +1,16 @@
 <?php
 
-use helpers\Utils; 
+use helpers\Utils;
 
-if(isset($_SESSION['action_update'])){
+if (isset($_SESSION['action_update'])) {
     $url = base_url . 'editorial/editar';
-}else{
+} else {
     $url = base_url . 'editorial/crear';
 }
 
 ?>
 
-<section class="form-container categorias">
+<section class="form-container editorial">
     <form action="<?= $url ?>" class="user-form" method="POST">
         <?php if (isset($_SESSION['action_update'])) : ?>
             <h2 class="form__title">Actualizar editorial</h2>
@@ -44,7 +44,7 @@ if(isset($_SESSION['action_update'])){
     </form>
 
     <div class="table-container">
-        <table class="table categorias" action="" class="user-form">
+        <table class="table editoriales" class="user-form">
             <thead>
                 <tr>
                     <th>Editorial</th>
@@ -77,7 +77,7 @@ if(isset($_SESSION['action_update'])){
                             <td><?= $editorial->editorial_name ?></td>
                             <td>
                                 <div class="acciones">
-                                    <a class="table-button form__success" href="<?= base_url ?>editorial/editar&id=<?= $editorial->id ?>&name=<?=$editorial->editorial_name?>">Editar</a>
+                                    <a class="table-button form__success" href="<?= base_url ?>editorial/editar&id=<?= $editorial->id ?>&name=<?= $editorial->editorial_name ?>">Editar</a>
                                     <a class="table-button form__failed" href="<?= base_url ?>editorial/eliminar&id=<?= $editorial->id ?>">Eliminar</a>
                                 </div>
                             </td>

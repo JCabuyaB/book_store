@@ -44,7 +44,7 @@ if(isset($_SESSION['action_update'])){
     </form>
 
     <div class="table-container">
-        <table class="table categorias" action="" class="user-form">
+        <table class="table categorias" class="user-form">
             <thead>
                 <tr>
                     <th>Categoría</th>
