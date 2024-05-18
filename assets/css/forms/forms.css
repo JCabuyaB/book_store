@@ -299,20 +299,38 @@
 }
 
 .table.categorias thead th:last-child,
-.table.editoriales thead th:last-child {
+.table.editoriales thead th:last-child,
+.table.libros thead th:last-child {
     width: 200px;
 }
 
 /* libros */
 .table-container.libros{
-
     margin-top: 20px;
 }
 
-/* .table.libros thead th:nth-child(2) {
-    width: 200px;
+.table.libros{
+    max-height: 500px;
+
 }
-.table.libros thead th:nth-child(3) {
-    width: 100px;
-    background: #000;
-} */
+
+.table.libros tbody{
+    font-size: 13px;
+}
+
+.table-image{
+    height: 150px;
+    width: 150px;
+}
+
+.table-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .5);
+}

@@ -5,6 +5,7 @@ use config\Database;
 
 class Libro
 {
+    private $id;
     private $isbn;
     private $titulo;
     private $autor;
@@ -34,7 +35,7 @@ class Libro
 
     #region  CRUD
     public function crearLibro(){
-        $query = "INSERT INTO tbl_libros VALUES('{$this->__get('isbn')}', '{$this->__get('titulo')})', '{$this->__get('autor')}', '{$this->__get('sinopsis')}', '{$this->__get('imagen')}', {$this->__get('id_categoria')}, {$this->__get('id_editorial')}, {$this->__get('precio')}, {$this->__get('stock')};";
+        $query = "INSERT INTO tbl_libros VALUES(null, '{$this->__get('isbn')}', '{$this->__get('titulo')}', '{$this->__get('autor')}', '{$this->__get('sinopsis')}', '{$this->__get('imagen')}', {$this->__get('id_categoria')}, {$this->__get('id_editorial')}, {$this->__get('precio')}, {$this->__get('stock')});";
 
         $connection = $this->base_datos->getConnection();
         $save = $connection->query($query);
@@ -48,7 +49,7 @@ class Libro
     }
 
     public function listarLibros(){
-        $query = "SELECT * FROM tbl_libros";
+        $query = "SELECT l.*, c.category_name 'categoria', e.editorial_name 'editorial' FROM tbl_libros l INNER JOIN tbl_categorias c ON c.id = l.id_cat INNER JOIN tbl_editoriales e ON e.id =  l.id_edit ORDER BY l.id DESC;";
 
         $connection = $this->base_datos->getConnection();
         $search = $connection->query($query);
@@ -72,6 +73,14 @@ class Libro
         }
 
         return $result;
+    }
+
+    public function getLibro(){
+        $query = "SELECT l.*, e.editorial_name, c.category_name FROM tbl_libros l INNER JOIN tbl_editoriales e ON l.id_edit = e.id INNER JOIN tbl_categorias c ON c.id = l.id_cat;";
+
+        $connection = $this->base_datos->getConnection();
+        // $select = 
+    
     }
     #endregion
 }

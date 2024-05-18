@@ -80,19 +80,19 @@ class Libro
                 $libro->__set('id_categoria', $id_categoria);
                 $libro->__set('id_editorial', $id_editorial);
                 $libro->__set('precio', $precio);
-                $libro->__set('stock, ', $stock);
+                $libro->__set('stock', $stock);
 
                 // guardar imagen
                 if(isset($_FILES['imagen'])){
                     $archivo = $_FILES['imagen'];
-                    $nombre = $_FILES['name'];
-                    $tipo_archivo = $_FILES['type'];
+                    $nombre = $archivo['name'];
+                    $tipo_archivo = $archivo['type'];
 
                     if($tipo_archivo == 'image/png' || $tipo_archivo == 'image/jpeg' || $tipo_archivo == 'image/jpg'){
                         if(!is_dir('uploads/images')){
                             mkdir('uploads/images', 0777, true);
                         }
-
+                        
                         $ruta = 'uploads/images';
 
                         $libro->__set('imagen', $nombre);
@@ -129,7 +129,38 @@ class Libro
         header('Location: ' . base_url . 'libro/administrar');
     }
 
+    public function eliminar(){
+        if(isset($_GET['id'])){
+            $id_libro = $_GET['id'];
+
+            $libro = new ModeloLibro();
+            $libro->__set('id', $id_libro);
+
+            $delete = $libro->eliminarLibro();
+
+            if($delete){
+                $_SESSION['delete']['ok'] = "Se eliminó el libro";
+            }else{
+                $_SESSION['delete']['none'] = "No se eliminó el libro";
+            }
+        }else{
+            $_SESSION['action_error'] = "No se completó la solicitud";
+        }
+        header('Location: ' . base_url . 'libro/administrar');
+    }
+
     public function editar()
     {
+        if(isset($_GET['id'])){
+            $id_libro = $_GET['id'];
+
+            $libro = new ModeloLibro();
+            $libro->__set('id', $id_libro);
+            $book_data = $libro->getLibro();
+        }else{
+            $_SESSION['action_error'] = "No se completó la solicitud";
+        }
+
+        header('Location: ' . base_url . 'libro/administrar');
     }
 }
