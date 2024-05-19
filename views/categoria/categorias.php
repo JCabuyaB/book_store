@@ -7,7 +7,6 @@ if(isset($_SESSION['action_update'])){
 }else{
     $url = base_url . 'categoria/nueva_categoria';
 }
-
 ?>
 
 <section class="form-container categorias">

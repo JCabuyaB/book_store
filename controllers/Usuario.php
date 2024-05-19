@@ -262,6 +262,7 @@ class Usuario
     {
         if (isset($_SESSION['user'])) {
             unset($_SESSION['user']);
+            session_unset();
         }
         header('Location: ' . base_url . 'usuario/index');
     }

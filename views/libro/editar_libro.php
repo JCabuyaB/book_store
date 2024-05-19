@@ -9,8 +9,9 @@ $categorias = ComplementsInfo::getCategorias();
 ?>
 
 <section class="form-container">
-    <form action="<?= base_url ?>libro/crear" class="user-form libro" method="POST" enctype="multipart/form-data">
-        <h2 class="form__title">Nuevo libro</h2>
+    <form action="<?= base_url ?>libro/crear&id=<?=$update->id?>" class="user-form libro" method="POST" enctype="multipart/form-data">
+        <h2 class="form__title">Actualizar libro</h2>
+
 
         <!-- mostrar estado(error o éxito) de la accion -->
         <?php if (isset($_SESSION['action_error'])) : ?>
@@ -24,7 +25,7 @@ $categorias = ComplementsInfo::getCategorias();
         <div class="form-columns">
             <div class="form-column">
                 <div class="form-group">
-                    <input type="text" name="isbn" class="form-group__input" value="<?= isset($_SESSION['current_data']['isbn']) ? $_SESSION['current_data']['isbn'] : '' ?>" required>
+                    <input type="text" name="isbn" class="form-group__input" value="<?= isset($update->isbn) ? $update->isbn : '' ?>" required>
                     <label class="form-group__label">ISBN</label>
                     <?php if (isset($_SESSION['errors']['isbn'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['isbn'] ?></p>
@@ -32,7 +33,7 @@ $categorias = ComplementsInfo::getCategorias();
                 </div>
 
                 <div class="form-group">
-                    <textarea type="text" name="sinopsis" class="form-group__input book sinopsis" required><?= isset($_SESSION['current_data']['sinopsis']) ? $_SESSION['current_data']['sinopsis'] : '' ?></textarea>
+                    <textarea type="text" name="sinopsis" class="form-group__input book sinopsis" required><?= isset($update->synopsis) ? $update->synopsis : '' ?></textarea>
                     <label class="form-group__label">Sinopsis</label>
                     <?php if (isset($_SESSION['errors']['sinopsis'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['sinopsis'] ?></p>
@@ -42,7 +43,7 @@ $categorias = ComplementsInfo::getCategorias();
 
             <div class="form-column">
                 <div class="form-group">
-                    <input type="text" name="titulo" class="form-group__input" value="<?= isset($_SESSION['current_data']['titulo']) ? $_SESSION['current_data']['titulo'] : '' ?>" required>
+                    <input type="text" name="titulo" class="form-group__input" value="<?= isset($update->title) ? $update->title : '' ?>" required>
                     <label class="form-group__label">Título</label>
                     <?php if (isset($_SESSION['errors']['titulo'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['titulo'] ?></p>
@@ -54,7 +55,7 @@ $categorias = ComplementsInfo::getCategorias();
                         <?php if (isset($editoriales) && $editoriales != null) : ?>
                             <option value="" style="display: none;"></option>
                             <?php while ($editorial = $editoriales->fetch_object()) : ?>
-                                <option value="<?= $editorial->id ?>" <?= isset($_SESSION['current_data']['editorial']) && $_SESSION['current_data']['editorial'] == $editorial->id ? 'selected' : '' ?>><?= $editorial->editorial_name ?></option>
+                                <option value="<?= $editorial->id ?>" <?= isset($update->id_edit) && $update->id_edit == $editorial->id ? 'selected' : '' ?>><?= $editorial->editorial_name ?></option>
                             <?php endwhile; ?>
                         <?php endif; ?>
                     </select>
@@ -66,7 +67,7 @@ $categorias = ComplementsInfo::getCategorias();
                 </div>
 
                 <div class="form-group">
-                    <input type="text" name="precio" class="form-group__input" value="<?= isset($_SESSION['current_data']['precio']) ? $_SESSION['current_data']['precio'] : '' ?>" required>
+                    <input type="text" name="precio" class="form-group__input" value="<?= isset($update->price) ? $update->price : '' ?>" required>
                     <label class="form-group__label">Precio</label>
                     <?php if (isset($_SESSION['errors']['precio'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['precio'] ?></p>
@@ -76,7 +77,7 @@ $categorias = ComplementsInfo::getCategorias();
 
             <div class="form-column">
                 <div class="form-group">
-                    <input type="text" name="autor" class="form-group__input" value="<?= isset($_SESSION['current_data']['autor']) ? $_SESSION['current_data']['autor'] : '' ?>" required>
+                    <input type="text" name="autor" class="form-group__input" value="<?= isset($update->autor) ? $update->autor : '' ?>" required>
                     <label class="form-group__label">Autor</label>
                     <?php if (isset($_SESSION['errors']['autor'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['autor'] ?></p>
@@ -88,7 +89,7 @@ $categorias = ComplementsInfo::getCategorias();
                         <option value="" style="display: none;"></option>
                         <?php if (isset($categorias) && $categorias != null) : ?>
                             <?php while ($categoria = $categorias->fetch_object()) : ?>
-                                <option value="<?= $categoria->id ?>" <?= isset($_SESSION['current_data']['categoria']) && $_SESSION['current_data']['categoria'] == $categoria->id ? 'selected' : '' ?>><?= $categoria->category_name ?></option>
+                                <option value="<?= $categoria->id ?>" <?= isset($update->id_cat) && $update->id_cat == $categoria->id ? 'selected' : '' ?>><?= $categoria->category_name ?></option>
                             <?php endwhile; ?>
                         <?php endif; ?>
                     </select>
@@ -100,7 +101,7 @@ $categorias = ComplementsInfo::getCategorias();
                 </div>
 
                 <div class="form-group">
-                    <input type="text" name="stock" class="form-group__input" value="<?= isset($_SESSION['current_data']['stock']) ? $_SESSION['current_data']['stock'] : '' ?>" required>
+                    <input type="text" name="stock" class="form-group__input" value="<?= isset($update->stock) ? $update->stock : '' ?>" required>
                     <label class="form-group__label">Stock</label>
                     <?php if (isset($_SESSION['errors']['stock'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['stock'] ?></p>
@@ -122,81 +123,10 @@ $categorias = ComplementsInfo::getCategorias();
         </div>
     </form>
 
-    <div class="table-container libros">
-        <table class="table libros" class="user-form">
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Autor</th>
-                    <th>Sinopsis</th>
-                    <th>Imagen</th>
-                    <th>Editorial</th>
-                    <th>Categoría</th>
-                    <th>Precio</th>
-                    <th>#Und</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-
-            <?php if (isset($libros) && $libros != null) : ?>
-                <tbody>
-                    <?php if (isset($_SESSION['delete']['ok'])) : ?>
-                        <tr id="table-alert" class="form__success">
-                            <td colspan="9" style="text-align: center;"><i class="bi bi-info-circle"></i> <?= $_SESSION['delete']['ok'] ?></td>
-                        </tr>
-                    <?php elseif (isset($_SESSION['delete']['none'])) : ?>
-                        <tr id="table-alert" class="form__failed">
-                            <td colspan="9" style="text-align: center;"><i class="bi bi-info-circle"></i> <?= $_SESSION['delete']['none'] ?></td>
-                        </tr>
-                    <?php elseif (isset($_SESSION['update']['ok'])) : ?>
-                        <tr id="table-alert" class="form__success">
-                            <td colspan="9" style="text-align: center;"><i class="bi bi-info-circle"></i> <?= $_SESSION['update']['ok'] ?></td>
-                        </tr>
-                    <?php elseif (isset($_SESSION['update']['none'])) : ?>
-                        <tr id="table-alert" class="form__failed">
-                            <td colspan="9" style="text-align: center;"><i class="bi bi-info-circle"></i> <?= $_SESSION['update']['none'] ?></td>
-                        </tr>
-                    <?php endif; ?>
-
-                    <?php while ($libro = $libros->fetch_object()) : ?>
-                        <tr>
-                            <td><?= $libro->title ?></td>
-                            <td><?= $libro->autor ?></td>
-                            <td><?= substr($libro->synopsis, 0, 15) . '...' ?></td>
-
-                            <td>
-                                <?php if ($libro->image != null) : ?>
-                                    <div class="table-image">
-                                        <img src="<?= base_url ?>uploads/images/<?= $libro->image ?>" alt="imagen">
-                                    </div>
-                                <?php else : ?>
-                                    Sin imagen
-                                <?php endif; ?>
-                            </td>
-
-                            <td><?= $libro->editorial ?></td>
-                            <td><?= $libro->categoria ?></td>
-                            <td><?= $libro->price ?></td>
-                            <td><?= $libro->stock ?></td>
-                            <td>
-                                <div class="acciones">
-                                    <a class="table-button form__success" href="<?= base_url ?>libro/editar&id=<?= $libro->id ?>">Editar</a>
-                                    <a class="table-button form__failed" href="<?= base_url ?>libro/eliminar&id=<?= $libro->id ?>">Eliminar</a>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            <?php endif; ?>
-        </table>
-    </div>
-
     <?php
     Utils::eliminarSesion('current_data');
     Utils::eliminarSesion('action_error');
     Utils::eliminarSesion('action_status');
-    Utils::eliminarSesion('action_update');
     Utils::eliminarSesion('errors');
-    Utils::eliminarSesion('delete');
     ?>
 </section>

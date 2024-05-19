@@ -12,7 +12,7 @@ class Compra{
 
     public function __construct()
     {
-        $this->base_datos = Database::connect();
+        $this->base_datos = Database::getInstance();
     }
 
     #region GETTERS Y SETTERS

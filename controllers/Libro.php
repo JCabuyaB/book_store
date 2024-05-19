@@ -25,6 +25,7 @@ class Libro
 
     public function crear()
     {
+        Utils::validarAdmin();
         if (isset($_POST)) {
             $isbn = isset($_POST['isbn']) ? $_POST['isbn'] : false;
             $titulo = isset($_POST['titulo']) ? $_POST['titulo'] : false;
@@ -83,25 +84,51 @@ class Libro
                 $libro->__set('stock', $stock);
 
                 // guardar imagen
-                if(isset($_FILES['imagen'])){
+                if (isset($_FILES['imagen']) && !empty($_FILES['imagen']['name'])) {
                     $archivo = $_FILES['imagen'];
                     $nombre = $archivo['name'];
                     $tipo_archivo = $archivo['type'];
 
-                    if($tipo_archivo == 'image/png' || $tipo_archivo == 'image/jpeg' || $tipo_archivo == 'image/jpg'){
-                        if(!is_dir('uploads/images')){
+                    if ($tipo_archivo == 'image/png' || $tipo_archivo == 'image/jpeg' || $tipo_archivo == 'image/jpg') {
+                        if (!is_dir('uploads/images')) {
                             mkdir('uploads/images', 0777, true);
                         }
-                        
-                        $ruta = 'uploads/images';
 
-                        $libro->__set('imagen', $nombre);
+                        $ruta = 'uploads/images/';
 
-                        move_uploaded_file($archivo['tmp_name'], $ruta . $nombre);
+                        if (isset($_GET['id'])) {
+                            // eliminar imagen si existe
+                            $libro_id = $_GET['id'];
+                            $libro->__set('id', $libro_id);
+                            $book = $libro->getLibro();
+
+                            $libro->__set('imagen', $book->image);
+                            $registros_imagen = $libro->verifyImageExists();
+
+                            // si la imagen no existe en otros libros se borra
+                            if (!$registros_imagen) {
+                                if (is_writable($ruta . $book->image)) {
+                                    unlink($ruta . $book->image);
+                                }
+                            }
+
+                            $libro->__set('imagen', $nombre);
+                            move_uploaded_file($archivo['tmp_name'], $ruta . $nombre);
+                        } else {
+                            $libro->__set('imagen', $nombre);
+                            move_uploaded_file($archivo['tmp_name'], $ruta . $nombre);
+                        }
                     }
+                } elseif (isset($_GET['id'])) {
+                    // imagen como estaba
+                    // eliminar imagen si existe
+                    $libro_id = $_GET['id'];
+                    $libro->__set('id', $libro_id);
+
+                    $book = $libro->getLibro();
+
+                    $libro->__set('imagen', $book->image);
                 }
-
-
 
                 if (isset($_GET['id'])) {
                     $id = $_GET['id'];
@@ -112,10 +139,11 @@ class Libro
                     $guardar = $libro->crearLibro();
                 }
 
-
-                if($guardar){
+                if (isset($guardar)) {
                     $_SESSION['action_status']['success'] = "Se creó el libro";
-                }else{
+                } elseif (isset($actualizar)) {
+                    $_SESSION['action_status']['success'] = "Se actualizó el libro";
+                } else {
                     $_SESSION['action_status']['failed'] = "No se procesó la solicitud";
                 }
             } else {
@@ -129,21 +157,34 @@ class Libro
         header('Location: ' . base_url . 'libro/administrar');
     }
 
-    public function eliminar(){
-        if(isset($_GET['id'])){
+    public function eliminar()
+    {
+        Utils::validarAdmin();
+        if (isset($_GET['id'])) {
             $id_libro = $_GET['id'];
 
             $libro = new ModeloLibro();
             $libro->__set('id', $id_libro);
+            $book = $libro->getLibro();
 
+            $libro->__set('imagen', $book->image);
+            $registros_imagen = $libro->verifyImageExists();
+
+            $path = 'uploads/images/' . $book->image;
             $delete = $libro->eliminarLibro();
 
-            if($delete){
+            if ($delete) {
+                if (!$registros_imagen) {
+                    if (is_writable($path)) {
+                        unlink($path);
+                    }
+                }
+
                 $_SESSION['delete']['ok'] = "Se eliminó el libro";
-            }else{
+            } else {
                 $_SESSION['delete']['none'] = "No se eliminó el libro";
             }
-        }else{
+        } else {
             $_SESSION['action_error'] = "No se completó la solicitud";
         }
         header('Location: ' . base_url . 'libro/administrar');
@@ -151,16 +192,22 @@ class Libro
 
     public function editar()
     {
-        if(isset($_GET['id'])){
+        Utils::validarAdmin();
+        if (isset($_GET['id'])) {
             $id_libro = $_GET['id'];
 
             $libro = new ModeloLibro();
             $libro->__set('id', $id_libro);
-            $book_data = $libro->getLibro();
-        }else{
+
+            $update = $libro->getLibro();
+
+            if ($update) {
+                require_once 'views/libro/editar_libro.php';
+            } else {
+                require_once 'views/usuario/administrar.php';
+            }
+        } else {
             $_SESSION['action_error'] = "No se completó la solicitud";
         }
-
-        header('Location: ' . base_url . 'libro/administrar');
     }
 }

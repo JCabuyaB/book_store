@@ -29,7 +29,8 @@ class Libro
     }
     
     public function __set($name, $value){
-        return $this->$name = $value;
+        $connection = $this->base_datos->getConnection();
+        return $this->$name = $connection->real_escape_string($value);
     }
     #endregion
 
@@ -58,7 +59,17 @@ class Libro
     }
 
     public function actualizarLibro(){
-        $query = "UPDATE tbl_libros SET ISBN = ('{$this->__get('isbn')}', '{$this->__get('titulo')})', '{$this->__get('autor')}', '{$this->__get('sinopsis')}', '{$this->__get('imagen')}', {$this->__get('id_categoria')}, {$this->__get('id_editorial')}, {$this->__get('precio')}, {$this->__get('stock')};";
+        $query = "UPDATE tbl_libros SET isbn = '{$this->__get('isbn')}', title = '{$this->__get('titulo')}', autor = '{$this->__get('autor')}', synopsis = '{$this->__get('sinopsis')}', image = '{$this->__get('imagen')}', id_cat = {$this->__get('id_categoria')}, id_edit = {$this->__get('id_editorial')}, price = {$this->__get('precio')}, stock = {$this->__get('stock')} WHERE id = {$this->__get('id')};";
+
+        $connection = $this->base_datos->getConnection();
+        $update = $connection->query($query);
+
+        $result = false;
+        if($update && $connection->affected_rows > 0){
+            $result = true;
+        }
+
+        return $result;
     }
 
     public function eliminarLibro(){
@@ -76,11 +87,31 @@ class Libro
     }
 
     public function getLibro(){
-        $query = "SELECT l.*, e.editorial_name, c.category_name FROM tbl_libros l INNER JOIN tbl_editoriales e ON l.id_edit = e.id INNER JOIN tbl_categorias c ON c.id = l.id_cat;";
+        $query = "SELECT l.*, e.editorial_name, c.category_name FROM tbl_libros l INNER JOIN tbl_editoriales e ON l.id_edit = e.id INNER JOIN tbl_categorias c ON c.id = l.id_cat WHERE l.id = {$this->__get('id')};";
 
         $connection = $this->base_datos->getConnection();
-        // $select = 
-    
+        $select = $connection->query($query);
+
+        $result = false;
+        if($select && $select->num_rows  == 1){
+            $result = $select->fetch_object();
+        }
+
+        return $result;
+    }
+
+    public function verifyImageExists(){
+        $query = "SELECT * FROM tbl_libros WHERE image = '{$this->__get('imagen')}';";
+
+        $connection = $this->base_datos->getConnection();
+        $search = $connection->query($query);
+
+        $result = false;
+        if($search && $search->num_rows > 1){
+            $result = true;
+        }
+
+        return $result;
     }
     #endregion
 }

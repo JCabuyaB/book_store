@@ -15,7 +15,8 @@ class Editorial{
 
     #region GETTERS Y SETTERS
     public function __set($name, $value){
-        return $this->$name = $value;
+        $connection = $this->base_datos->getConnection();
+        return $this->$name = $connection->real_escape_string($value);
     }
 
     public function __get($name){
