@@ -1,10 +1,10 @@
 <?php
 
-use helpers\Utils; 
+use helpers\Utils;
 
-if(isset($_SESSION['action_update'])){
+if (isset($_SESSION['action_update'])) {
     $url = base_url . 'categoria/editar';
-}else{
+} else {
     $url = base_url . 'categoria/nueva_categoria';
 }
 ?>
@@ -76,7 +76,7 @@ if(isset($_SESSION['action_update'])){
                             <td><?= $categoria->category_name ?></td>
                             <td>
                                 <div class="acciones">
-                                    <a class="table-button form__success" href="<?= base_url ?>categoria/editar&id=<?= $categoria->id ?>&name=<?=$categoria->category_name?>">Editar</a>
+                                    <a class="table-button form__success" href="<?= base_url ?>categoria/editar&id=<?= $categoria->id ?>&name=<?= urlencode($categoria->category_name) ?>">Editar</a>
                                     <a class="table-button form__failed" href="<?= base_url ?>categoria/eliminar&id=<?= $categoria->id ?>">Eliminar</a>
                                 </div>
                             </td>

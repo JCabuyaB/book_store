@@ -160,6 +160,19 @@
     color: var(--color-primary);
 }
 
+.search{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cart__info{
+    text-decoration: none;
+    color: var(--color-white);
+    font-size: 18px;
+    font-weight: 300;
+}
+
 .search-form{
     display: flex;
     gap: 20px;

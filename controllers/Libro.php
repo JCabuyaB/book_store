@@ -15,12 +15,56 @@ class Libro
         require_once 'views/libro/libros.php';
     }
 
+    public function getLibros()
+    {
+        $libro = new  ModeloLibro();
+        $libros = $libro->listarLibros();
+
+        return $libros;
+    }
+
     public function administrar()
     {
         Utils::validarAdmin();
         $libro = new ModeloLibro();
         $libros = $libro->listarLibros();
         require_once 'views/libro/formulario_libro.php';
+    }
+
+    public function categoria()
+    {
+        if ($_GET['name']) {
+            $categoria = $_GET['name'];
+
+            $libro = new ModeloLibro();
+            $libros = $libro->getByCategory($categoria);
+
+            if ($libros) {
+                require_once 'views/libro/by_category.php';
+            } else {
+                Utils::showError();
+            }
+        } else {
+            header('Location: ' . base_url);
+        }
+    }
+
+    public function buscar()
+    {
+        if (isset($_POST) && isset($_POST['busqueda'])) {
+            $search = $_POST['busqueda'];
+
+            $libro = new ModeloLibro();
+            $libros = $libro->search($search);
+
+            if ($libros) {
+                require_once 'views/libro/buscar.php';
+            } else {
+                header('Location: ' . base_url);
+            }
+        } else {
+            header('Location: ' . base_url);
+        }
     }
 
     public function crear()

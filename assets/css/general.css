@@ -26,7 +26,8 @@
 .body {
     position: relative;
     background: var(--color-white);
-    /* background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, .4)), url('../img/page/bg.jpg'); */
+    /* background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, .4)), url('../img/page/background.jpg'); */
+    background: url('../img/page/background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -36,6 +37,7 @@
 .body::after{
     content: '';
     position: absolute;
+    background: rgba(0, 0, 0, .4);
     inset: 0;
     z-index: -1;
 }

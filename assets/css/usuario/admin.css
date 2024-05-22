@@ -12,63 +12,71 @@
     text-decoration: none;
     width: 0;
     flex-grow: 1;
-    opacity: .6;
     display: grid;
     place-content: center;
-    transition: all .3s ease;
-    -webkit-transition: all .3s ease;
-    -moz-transition: all .3s ease;
-    -ms-transition: all .3s ease;
-    -o-transition: all .3s ease;
+    transition: box-shadow .1s ease;
+    -webkit-transition: box-shadow .1s ease;
+    -moz-transition: box-shadow .1s ease;
+    -ms-transition: box-shadow .1s ease;
+    -o-transition: box-shadow .1s ease;
+    z-index: 2;
+}
+
+.admin-panel-column::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .8);
 }
 
 .admin-panel-column.categoria{
-    background: url('../../img/page/admin/categorias.jpg');
+    /* background: #2f3e46; */
+    background: url('../../img/admin/categorias.png');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 .admin-panel-column.editorial{
-    background: url('../../img/page/admin/edit.jpg');
+    /* background: #354f52; */
+    background: url('../../img/admin/editorial.png');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 .admin-panel-column.libro{
-    background: url('../../img/page/admin/libro.jpg');
+    /* background: #52796f; */
+    background: url('../../img/admin/libro.png');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 .admin-panel-column.usuario{
-    background: url('../../img/page/admin/usuarios.jpg');
+    /* background: #84a98c; */
+    background: url('../../img/admin/usuarios.png');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 .admin-panel-column.pedido{
-    background: url('../../img/page/admin/pedidos.jpg');
+    /* background: #cad2c5; */
+    background: url('../../img/admin/pedidos.png');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 .admin-panel-column__title{
     color: var(--color-white);
-    font-size: 35px;
-    font-weight: 300;
-    transition: all .3s ease;
-    -webkit-transition: all .3s ease;
-    -moz-transition: all .3s ease;
-    -ms-transition: all .3s ease;
-    -o-transition: all .3s ease;
+    font-size: 37px;
+    font-weight: 400;
+    text-shadow: 0 0 10px #000;
+    z-index: 1;
 }
 
-.admin-panel-column:hover{
-    width: 300px;
-    opacity: 1;
-}
-
-.admin-panel-column:hover .admin-panel-column__title{
-    font-size: 40px;
-    letter-spacing: 1px;
+.admin-panel-column:hover.admin-panel-column::after{
+    box-shadow: inset 0 0 30px 5px rgba(255, 255, 255, .5);
 }

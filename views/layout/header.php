@@ -28,16 +28,23 @@
     <link rel="stylesheet" href="<?= base_url ?>assets/css/forms/forms.css">
 </head>
 
+<?php
+
+use controllers\ComplementsInfo; ?>
+
 <body class="body">
     <header class="header">
         <nav class="nav">
             <ul class="menu">
                 <li class="menu__item"><a href="<?= base_url ?>" class="menu__item--text">Inicio</a></li>
-                <li class="menu__item"><a href="#" class="menu__item--text">database</a></li>
-                <li class="menu__item"><a href="#" class="menu__item--text">database</a></li>
-                <li class="menu__item"><a href="#" class="menu__item--text">database</a></li>
-                <li class="menu__item"><a href="#" class="menu__item--text">database</a></li>
-                <li class="menu__item"><a href="#" class="menu__item--text">database</a></li>
+
+                <?php $cat  = ComplementsInfo::getCategorias(); ?>
+
+                <?php if ($cat->num_rows > 0) : ?>
+                    <?php while ($categoria = $cat->fetch_object()) : ?>
+                        <li class="menu__item"><a href="<?= base_url ?>libro/categoria&name=<?= urlencode(strtolower($categoria->category_name)) ?>" class="menu__item--text"><?= htmlspecialchars($categoria->category_name) ?></a></li>
+                    <?php endwhile; ?>
+                <?php endif; ?>
                 <li class="menu__item menu__item--user-container">
                     <?php if (isset($_SESSION['user'])) : ?>
                         <a class="menu__item--text menu__item--main-text" href="#"><?= $_SESSION['user']->mail ?></a>
@@ -60,7 +67,14 @@
         </nav>
 
         <div class="search">
-            <form action="<?= base_url ?>libro/buscar" class="search-form" autocomplete="off">
+            <div class="cart">
+                <?php if (isset($_SESSION['cart'])) : ?>
+                    <a class="cart__info" href="<?=base_url?>compra/carrito"><i class="bi bi-cart-fill"></i> Libros: <?= count($_SESSION['cart']) ?></a>
+                <?php else : ?>
+                    <a class="cart__info" href="#"><i class="bi bi-cart-fill"></i> Libros: 0</a>
+                <?php endif; ?>
+            </div>
+            <form action="<?= base_url ?>libro/buscar" class="search-form" autocomplete="off" method="POST">
                 <input type="text" name="busqueda" class="search-form__input" placeholder="buscar libro">
                 <input type="submit" value="Buscar" class="search-form__button">
             </form>

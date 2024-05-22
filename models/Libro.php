@@ -113,5 +113,33 @@ class Libro
 
         return $result;
     }
+
+    public function getByCategory($category){
+        $query = "SELECT l.* FROM tbl_libros l INNER JOIN tbl_categorias c ON c.id = l.id_cat WHERE c.category_name = '{$category}';";
+
+        $connection = $this->base_datos->getConnection();
+        $select = $connection->query($query);
+
+        $result = false;
+        if($select && $select->num_rows > 0){
+            $result = $select;
+        }
+
+        return $result;
+    }
+
+    public function search($search){
+        $query = "SELECT l.* FROM tbl_libros l INNER JOIN tbl_categorias c ON c.id = l.id_cat WHERE c.category_name LIKE '%{$search}%' OR l.autor LIKE '%{$search}%' OR l.title LIKE '%{$search}%';";
+
+        $connection = $this->base_datos->getConnection();
+        $result_search = $connection->query($query);
+
+        $result = false;
+        if($result_search && $result_search->num_rows > 0){
+            $result = $result_search;
+        }
+
+        return $result;
+    }
     #endregion
 }

@@ -1,22 +1,7 @@
-<?php
-
-use controllers\Libro;
-
-$libro = new Libro();
-$books = $libro->getLibros();
-
-?>
-
-<section class="hero">
-    <h1 class="hero__title">Librería Marinilla</h1>
-    <h2 class="hero__subtitle">Haz tu primer pedido con envío gratis</h2>
-    <a class="hero__button" href="#libros">Ver libros</a>
-</section>
-
-<main class="main" id="libros">
-    <section class="books">
-        <?php if (is_object($books) && $books->num_rows > 0) : ?>
-            <?php while ($book = $books->fetch_object()) : ?>
+<main class="main">
+    <section class="book">
+        <?php if (is_object($libros) && $libros->num_rows > 0) : ?>
+            <?php while ($book = $libros->fetch_object()) : ?>
                 <div class="flip-card">
                     <div class="flip-card-inner">
                         <!-- front face -->

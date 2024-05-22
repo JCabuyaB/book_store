@@ -101,7 +101,7 @@ class Usuario
 
                 $existe = $usuario->verificarExistenciaUsuario();
 
-                if ($existe) {
+                if ($existe && !isset($_SESSION['user'])) {
                     $_SESSION['action_status']['failed'] = 'El usuario ya existe';
                     $_SESSION['current_data'] = $_POST;
                 } else {

@@ -77,7 +77,7 @@ if (isset($_SESSION['action_update'])) {
                             <td><?= $editorial->editorial_name ?></td>
                             <td>
                                 <div class="acciones">
-                                    <a class="table-button form__success" href="<?= base_url ?>editorial/editar&id=<?= $editorial->id ?>&name=<?= $editorial->editorial_name ?>">Editar</a>
+                                    <a class="table-button form__success" href="<?= base_url ?>editorial/editar&id=<?= $editorial->id ?>&name=<?= urlencode($editorial->editorial_name) ?>">Editar</a>
                                     <a class="table-button form__failed" href="<?= base_url ?>editorial/eliminar&id=<?= $editorial->id ?>">Eliminar</a>
                                 </div>
                             </td>
