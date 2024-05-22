@@ -139,4 +139,27 @@ class Utils
         header('Location: ' . base_url);
     }
     #endregion
+
+    #region carrito
+    public static function calcularSubtotal($indice){
+        if(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0){
+            $subtotal = $_SESSION['cart'][$indice]['precio'] * $_SESSION['cart'][$indice]['unidades'];
+        }
+
+        return number_format($subtotal);
+    }
+    
+    public static function calcularTotal(){
+        if(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0){
+            $total = 0;
+            foreach($_SESSION['cart'] as $index => $value){
+                $total+= $_SESSION['cart'][$index]['precio'] * $_SESSION['cart'][$index]['unidades'];
+            }
+        }
+
+
+        return number_format($total);
+    }
+    #endregion
+
 }

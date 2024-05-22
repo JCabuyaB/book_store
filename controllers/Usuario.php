@@ -10,7 +10,6 @@ class Usuario
     #region vistas
     public function index()
     {
-        Utils::validarLogout();
         require_once 'views/usuario/login.php';
     }
 
@@ -38,7 +37,7 @@ class Usuario
         if (isset($_POST)) {
             // variables
             $nombre = isset($_POST['name']) ? $_POST['name'] : false;
-            $rol = isset($_POST['role']) ? $_POST['role'] : $rol??'user';
+            $rol = isset($_POST['role']) ? $_POST['role'] : $rol ?? 'user';
             $correo = isset($_POST['mail']) ? $_POST['mail'] : false;
             $contra = isset($_POST['password']) ? $_POST['password'] : false;
             $confirmar_contra = isset($_POST['confirm_pass']) ? $_POST['confirm_pass'] : false;
@@ -262,7 +261,9 @@ class Usuario
     {
         if (isset($_SESSION['user'])) {
             unset($_SESSION['user']);
-            session_unset();
+        }
+        if (isset($_SESSION['admin'])) {
+            unset($_SESSION['admin']);
         }
         header('Location: ' . base_url . 'usuario/index');
     }

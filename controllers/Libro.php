@@ -49,6 +49,25 @@ class Libro
         }
     }
 
+    public function ver(){
+        if(isset($_GET['id'])){
+            $id_libro = $_GET['id'];
+
+            $libro = new ModeloLibro();
+            $libro->__set('id', $id_libro);
+            $book = $libro->getLibro();
+
+            if(is_object($book)){
+                require_once 'views/libro/libro.php';
+            }else{
+                header('Location: ' . base_url . 'errors/');
+            }
+        }else{
+            header('Location: ' . base_url);
+        }
+    }
+
+    #region CRUD
     public function buscar()
     {
         if (isset($_POST) && isset($_POST['busqueda'])) {
@@ -60,7 +79,7 @@ class Libro
             if ($libros) {
                 require_once 'views/libro/buscar.php';
             } else {
-                header('Location: ' . base_url);
+                header('Location: ' . base_url . 'libro/');
             }
         } else {
             header('Location: ' . base_url);
@@ -254,4 +273,5 @@ class Libro
             $_SESSION['action_error'] = "No se completó la solicitud";
         }
     }
+    #endregion
 }

@@ -10,7 +10,7 @@ $books = $libro->getLibros();
 <section class="hero">
     <h1 class="hero__title">Librería Marinilla</h1>
     <h2 class="hero__subtitle">Haz tu primer pedido con envío gratis</h2>
-    <a class="hero__button" href="#libros">Ver libros</a>
+    <a class="hero__button" href="<?= base_url ?>libro/">Ver libros</a>
 </section>
 
 <main class="main" id="libros">
@@ -37,7 +37,9 @@ $books = $libro->getLibros();
                             </div>
                             <div class="flip-card-back-bottom">
                                 <span class="flip-card-back-bottom__stock">Unidades: <?= $book->stock ?></span>
-                                <a href="<?=base_url?>compra/carrito&id=<?=$book->id?>" class="flip-card-back-bottom__btn">Añadir al carrito</a>
+                                <span class="flip-card-back-bottom__price">Precio: $<?= number_format($book->price) ?></span>
+                                <a href="<?= base_url ?>libro/ver&id=<?= $book->id ?>" class="flip-card-back-bottom__btn">Ver libro</a>
+                                <a href="<?= base_url ?>carrito/add&id=<?= $book->id ?>" class="flip-card-back-bottom__btn">Añadir al carrito</a>
                             </div>
                         </article>
                     </div>

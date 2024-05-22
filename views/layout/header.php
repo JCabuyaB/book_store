@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="<?= base_url ?>assets/css/books/books.css">
     <link rel="stylesheet" href="<?= base_url ?>assets/css/general.css">
     <link rel="stylesheet" href="<?= base_url ?>assets/css/forms/forms.css">
+    <link rel="stylesheet" href="<?= base_url ?>assets/css/carrito/carrito.css">
 </head>
 
 <?php
@@ -69,9 +70,9 @@ use controllers\ComplementsInfo; ?>
         <div class="search">
             <div class="cart">
                 <?php if (isset($_SESSION['cart'])) : ?>
-                    <a class="cart__info" href="<?=base_url?>compra/carrito"><i class="bi bi-cart-fill"></i> Libros: <?= count($_SESSION['cart']) ?></a>
+                    <a class="cart__info" href="<?= base_url ?>carrito/"><i class="bi bi-cart-fill"></i> Libros: <?= count($_SESSION['cart']) ?></a>
                 <?php else : ?>
-                    <a class="cart__info" href="#"><i class="bi bi-cart-fill"></i> Libros: 0</a>
+                    <a class="cart__info" href="<?= base_url ?>carrito/"><i class="bi bi-cart-fill"></i> Libros: 0</a>
                 <?php endif; ?>
             </div>
             <form action="<?= base_url ?>libro/buscar" class="search-form" autocomplete="off" method="POST">

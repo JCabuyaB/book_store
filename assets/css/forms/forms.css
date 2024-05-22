@@ -273,6 +273,8 @@
 }
 
 .table-button {
+    width: 48%;
+    text-align: center;
     padding: 10px;
     font-size: 15px;
     text-decoration: none;

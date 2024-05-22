@@ -1,6 +1,7 @@
 .header {
     width: 100%;
-    position: relative;
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -195,7 +196,7 @@
     color: var(--color-white);
     font-size: 18px;
     padding: 7px 20px;
-    border: 2px solid var(--color-secondary);
+    border: none;
     transition: all .3s ease;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
@@ -209,8 +210,11 @@
 }
 
 .search-form__button:hover{
-    background: var(--color-white);
-    color: var(--color-secondary);
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
 }
 
 @media screen and (max-width: 1200px){

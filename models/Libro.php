@@ -87,7 +87,7 @@ class Libro
     }
 
     public function getLibro(){
-        $query = "SELECT l.*, e.editorial_name, c.category_name FROM tbl_libros l INNER JOIN tbl_editoriales e ON l.id_edit = e.id INNER JOIN tbl_categorias c ON c.id = l.id_cat WHERE l.id = {$this->__get('id')};";
+        $query = "SELECT l.*, e.editorial_name, c.category_name, e.editorial_name FROM tbl_libros l INNER JOIN tbl_editoriales e ON l.id_edit = e.id INNER JOIN tbl_categorias c ON c.id = l.id_cat WHERE l.id = {$this->__get('id')};";
 
         $connection = $this->base_datos->getConnection();
         $select = $connection->query($query);
