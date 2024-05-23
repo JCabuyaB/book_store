@@ -65,4 +65,14 @@ class Carrito{
         Utils::eliminarSesion('cart');
         header('Location: ' . base_url . 'carrito/');
     }
+
+    public function finalizar(){
+        if(!isset($_SESSION['user'])){
+            $_SESSION['action_error'] = "Debe iniciar sesión para finalizar la compra";
+        }
+
+        if(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0){
+            require_once 'views/carrito/finalizar.php';
+        }
+    }
 }

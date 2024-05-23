@@ -111,7 +111,7 @@
 
         <div class="form-buttons">
             <input class="form-button form-buttons__submit" type="submit" value="<?= $main_btn ?>">
-            <a class="form-button form-button <?= $color_btn ?>" href="<?= $alternative_url ?>"><?= $alternative_btn ?></a>
+            <a class="form-button <?= $color_btn ?>" href="<?= $alternative_url ?>"><?= $alternative_btn ?></a>
         </div>
     </form>
 

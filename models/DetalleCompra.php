@@ -19,69 +19,14 @@ class DetalleCompras
     }
 
     #region GETTERS Y SETTERS
-    // id
-    public function getId()
+    public function __set($name, $value)
     {
-        return $this->id;
+        return $this->$name = $value;
     }
 
-    public function setId($id)
+    public function __get($name)
     {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    // factura
-    public function getCod_compra()
-    {
-        return $this->cod_compra;
-    }
-
-    public function setCod_compra($cod_compra)
-    {
-        $this->cod_compra = $cod_compra;
-
-        return $this;
-    }
-
-    // libro
-    public function getIsbn_libro()
-    {
-        return $this->isbn_libro;
-    }
-
-    public function setIsbn_libro($isbn_libro)
-    {
-        $this->isbn_libro = $isbn_libro;
-
-        return $this;
-    }
-
-    // cantidad
-    public function getCantidad()
-    {
-        return $this->cantidad;
-    }
-
-    public function setCantidad($cantidad)
-    {
-        $this->cantidad = $cantidad;
-
-        return $this;
-    }
-
-    // total
-    public function getTotal()
-    {
-        return $this->total;
-    }
-
-    public function setTotal($total)
-    {
-        $this->total = $total;
-
-        return $this;
+        return $this->$name;
     }
     #endregion
 
@@ -94,7 +39,7 @@ class DetalleCompras
 
     }
 
-    public function actualizar_detalle_compra(){
+    public function actualizar_detalle_compra(){{}
 
     }
 

@@ -16,56 +16,14 @@ class Compra{
     }
 
     #region GETTERS Y SETTERS
-    // codigo factura
-    public function getCodigo()
+    public function __set($name, $value)
     {
-        return $this->codigo;
+        return $this->$name = $value;
     }
 
-    public function setCodigo($codigo)
+    public function __get($name)
     {
-        $this->codigo = $codigo;
-
-        return $this;
-    }
-
-    // usuario 
-    public function getId_usuario()
-    {
-        return $this->id_usuario;
-    }
-
-    public function setId_usuario($id_usuario)
-    {
-        $this->id_usuario = $id_usuario;
-
-        return $this;
-    }
-
-    // fecha
-    public function getFecha_venta()
-    {
-        return $this->fecha_venta;
-    }
-
-    public function setFecha_venta($fecha_venta)
-    {
-        $this->fecha_venta = $fecha_venta;
-
-        return $this;
-    }
-
-    // estado
-    public function getEstado_venta()
-    {
-        return $this->estado_venta;
-    }
-
-    public function setEstado_venta($estado_venta)
-    {
-        $this->estado_venta = $estado_venta;
-
-        return $this;
+        return $this->$name;
     }
     #endregion
 

@@ -39,9 +39,9 @@ use helpers\Utils; ?>
                                         </div>
                                     <?php endif; ?>
                                 </td>
-                                <td><?= number_format($carrito[$index]['precio']) ?></td>
+                                <td>$<?= number_format($carrito[$index]['precio']) ?></td>
                                 <td><?= $carrito[$index]['unidades'] ?></td>
-                                <td><?= Utils::calcularSubtotal($index) ?></td>
+                                <td>$<?= Utils::calcularSubtotal($index) ?></td>
                                 <td>
                                     <div class="acciones">
                                         <a class="table-button form__failed" href="<?= base_url ?>carrito/eliminar&id=<?= $index ?>">Eliminar</a>
