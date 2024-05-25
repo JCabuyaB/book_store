@@ -221,7 +221,13 @@ class Usuario
     }
 
     public function listarUsuarios(){
-        $query = "SELECT * FROM usuarios WHERE id <> '{$this->getId()}';";
+        $query = "SELECT * FROM tbl_usuarios WHERE id <> '{$this->getId()}';";
+
+        $connection = $this->db->getConnection();
+
+        $select = $connection->query($query);
+
+        return $select;
     }
     #endregion
 

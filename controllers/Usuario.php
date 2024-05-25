@@ -29,6 +29,16 @@ class Usuario
         Utils::validarAdmin();
         require_once 'views/usuario/administrar.php';
     }
+
+    public function usuarios(){
+        Utils::validarAdmin();
+        $admin_id = $_SESSION['user']->id;
+        $usuario = new ModeloUsuario();
+        $usuario->setId($admin_id);
+        $usuarios = $usuario->listarUsuarios();
+
+        require_once 'views/usuario/usuarios.php';
+    }
     #endregion
 
     #region CRUD
