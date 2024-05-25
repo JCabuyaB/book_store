@@ -1,5 +1,5 @@
 <footer class="footer">
-    Desarrollado por Sena Company &copy; <?= date('Y') ?>
+    Desarrollado por David Ricardo &copy; <?= date('Y') ?>
 </footer>
 </body>
 

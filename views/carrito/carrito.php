@@ -45,7 +45,7 @@ use helpers\Utils; ?>
                                 <td>
                                     <div class="acciones">
                                         <a class="table-button form__failed" href="<?= base_url ?>carrito/eliminar&id=<?= $index ?>">Eliminar</a>
-                                        <a class="table-button form__success" href="<?= base_url ?>/libro/ver&id=<?=$carrito[$index]['id_libro']?>">Ver</a>
+                                        <a class="table-button form__success" href="<?= base_url ?>libro/ver&id=<?=$carrito[$index]['id_libro']?>">Ver</a>
                                     </div>
                                 </td>
                             </tr>

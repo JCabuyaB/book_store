@@ -27,6 +27,21 @@
     backdrop-filter: blur(6px);
 }
 
+.cart-stats-confirm{
+    margin-top: 20px;
+    background: var(--color-glass);
+    width: 90%;
+    margin-inline: auto;
+    padding: 30px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    backdrop-filter: blur(6px);
+}
+
 .cart-stats__vaciar{
     text-decoration: none;
     background: transparent;
@@ -49,8 +64,13 @@
     background: var(--color-glass);
 }
 
-.cart-stats__total{
+.cart-stats__total,
+.cart-stats-confirm__total{
     font-size: 26px;
     font-weight: 300;
     color: var(--color-white);
+}
+
+.cart-stats-confirm__total{
+    text-align: center;
 }

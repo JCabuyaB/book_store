@@ -3,10 +3,12 @@
         <h2 class="form__title">Acceder</h2>
         <?php if (isset($_SESSION['action_status']['failed'])) : ?>
             <p class="form__main-alert form__failed"><?= $_SESSION['action_status']['failed'] ?></p>
-        <?php elseif (isset($_SESSION['user_login_error'])) : ?>
+        <?php elseif (isset($_SESSION['c'])) : ?>
             <p class="form__main-alert form__failed"><?= $_SESSION['user_login_error'] ?></p>
         <?php elseif (isset($_SESSION['action_status']['success'])) : ?>
             <p class="form__main-alert form__success"><?= $_SESSION['action_status']['success'] ?></p>
+        <?php elseif (isset($_SESSION['action_error'])) : ?>
+            <p class="form__main-alert form__failed"><?= $_SESSION['action_error'] ?></p>
         <?php endif; ?>
 
         <div class="form-group">
@@ -35,5 +37,7 @@
     Utils::eliminarSesion('errors');
     Utils::eliminarSesion('action_status');
     Utils::eliminarSesion('current_data'); 
+    Utils::eliminarSesion('user_login_error'); 
+    Utils::eliminarSesion('action_error'); 
     ?>
 </section>

@@ -51,11 +51,11 @@ use controllers\ComplementsInfo; ?>
                         <a class="menu__item--text menu__item--main-text" href="#"><?= $_SESSION['user']->mail ?></a>
                         <ul class="user-menu">
                             <ul class="user-submenu">
-                                <li class="user-submenu__item submenu-guide-arrow"><a class="user-submenu__item-text user-submenu__item-text--top" href="<?= base_url ?>usuario/actualizar&id=<?= $_SESSION['user']->id ?>">Mi cuenta</a></li>
+                                <li class="user-submenu__item submenu-guide-arrow"><a class="user-submenu__item-text user-submenu__item-text--top" href="<?= base_url ?>usuario/actualizar&id=<?= $_SESSION['user']->id ?>">Mis datos</a></li>
                                 <?php if (isset($_SESSION['admin'])) : ?>
                                     <li class="user-submenu__item"><a class="user-submenu__item-text" href="<?= base_url ?>usuario/administrar">Administración</a></li>
                                 <?php else : ?>
-                                    <li class="user-submenu__item"><a class="user-submenu__item-text" href="<?= base_url ?>usuario/administrar">Mis pedidos</a></li>
+                                    <li class="user-submenu__item"><a class="user-submenu__item-text" href="<?= base_url ?>compra/compras">Mis pedidos</a></li>
                                 <?php endif; ?>
                                 <li class="user-submenu__item"><a class="user-submenu__item-text user-submenu__item-text--bottom" href="<?= base_url ?>usuario/logout">Cerrar sesión</a></li>
                             </ul>

@@ -58,6 +58,15 @@ class Libro
         return $search;
     }
 
+    public function getLastBooks(){
+        $query = "SELECT * FROM tbl_libros ORDER BY id DESC LIMIT 4";
+
+        $connection = $this->base_datos->getConnection();
+        $libros = $connection->query($query);
+
+        return $libros;
+    }
+
     public function actualizarLibro(){
         $query = "UPDATE tbl_libros SET isbn = '{$this->__get('isbn')}', title = '{$this->__get('titulo')}', autor = '{$this->__get('autor')}', synopsis = '{$this->__get('sinopsis')}', image = '{$this->__get('imagen')}', id_cat = {$this->__get('id_categoria')}, id_edit = {$this->__get('id_editorial')}, price = {$this->__get('precio')}, stock = {$this->__get('stock')} WHERE id = {$this->__get('id')};";
 

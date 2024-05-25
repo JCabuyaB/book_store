@@ -3,7 +3,7 @@
 use controllers\Libro;
 
 $libro = new Libro();
-$books = $libro->getLibros();
+$books = $libro->getLastBooks();
 
 ?>
 
@@ -14,6 +14,7 @@ $books = $libro->getLibros();
 </section>
 
 <main class="main" id="libros">
+    <h2 class="main__title">Destacados</h2>
     <section class="books">
         <?php if (is_object($books) && $books->num_rows > 0) : ?>
             <?php while ($book = $books->fetch_object()) : ?>

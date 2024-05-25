@@ -67,6 +67,11 @@ class Libro
         }
     }
 
+    public function getLastBooks(){
+        $libro = new ModeloLibro();
+        return $libro->getLastBooks();
+    }
+
     #region CRUD
     public function buscar()
     {

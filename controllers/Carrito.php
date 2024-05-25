@@ -72,6 +72,7 @@ class Carrito{
         }
 
         if(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0){
+            $carrito = $_SESSION['cart'];
             require_once 'views/carrito/finalizar.php';
         }
     }
