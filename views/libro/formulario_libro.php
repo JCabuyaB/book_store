@@ -107,15 +107,13 @@ $categorias = ComplementsInfo::getCategorias();
                     <?php endif; ?>
                 </div>
             </div>
-        </div>
 
+        </div>
         <div class="form-group">
             <input type="file" name="imagen" class="form-group__input book imagen">
             <label class="form-group__label">Imagen</label>
-            <?php if (isset($_SESSION['errors']['imagen'])) : ?>
-                <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['imagen'] ?></p>
-            <?php endif; ?>
         </div>
+
 
         <div class="form-buttons">
             <input class="form-button form-buttons__submit" type="submit" value="Continuar">

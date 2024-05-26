@@ -38,6 +38,7 @@ use controllers\ComplementsInfo; ?>
         <nav class="nav">
             <ul class="menu">
                 <li class="menu__item"><a href="<?= base_url ?>" class="menu__item--text">Inicio</a></li>
+                <li class="menu__item"><a href="<?= base_url ?>libro/" class="menu__item--text">Libros</a></li>
 
                 <?php $cat  = ComplementsInfo::getCategorias(); ?>
 
@@ -69,9 +70,9 @@ use controllers\ComplementsInfo; ?>
 
         <div class="search">
             <div class="cart">
-                <?php if (isset($_SESSION['cart'])) : ?>
+                <?php if (isset($_SESSION['cart']) && !isset($_SESSION['admin'])) : ?>
                     <a class="cart__info" href="<?= base_url ?>carrito/"><i class="bi bi-cart-fill"></i> Libros: <?= count($_SESSION['cart']) ?></a>
-                <?php else : ?>
+                <?php elseif(!isset($_SESSION['admin'])) : ?>
                     <a class="cart__info" href="<?= base_url ?>carrito/"><i class="bi bi-cart-fill"></i> Libros: 0</a>
                 <?php endif; ?>
             </div>

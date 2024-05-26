@@ -16,7 +16,7 @@
                     <div class="main-book-texts">
                         <h3 class="main-book-texts__title"><?= $book->title ?></h3>
                         <h4 class="main-book-texts__autor"><?= $book->autor ?> (Autor) <i class="main-book-texts__pencil bi bi-pencil-fill"></i></h4>
-                        <p class="main-book-texts__synopsis"><?= $book->synopsis ?></p>
+                        <p class="main-book-texts__synopsis"><?= substr($book->synopsis, 0, 500) . '...' ?></p>
                     </div>
 
                     <div class="main-book-actions">

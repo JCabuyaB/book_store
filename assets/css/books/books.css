@@ -89,13 +89,14 @@
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
-    padding: 20px;
+    padding: 15px;
 }
 
 .flip-card-back-texts__title {
-    font-size: 25px;
+    font-size: 23px;
     color: var(--color-white);
     font-weight: 400;
+    text-transform: capitalize;
 }
 
 .flip-card-back-texts__autor {
@@ -106,7 +107,7 @@
 .flip-card-back-texts__description {
     margin-top: 10px;
     color: var(--color-white);
-    font-size: 16px;
+    font-size: 15px;
     line-height: 22px;
 }
 

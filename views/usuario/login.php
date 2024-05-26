@@ -9,6 +9,8 @@
             <p class="form__main-alert form__success"><?= $_SESSION['action_status']['success'] ?></p>
         <?php elseif (isset($_SESSION['action_error'])) : ?>
             <p class="form__main-alert form__failed"><?= $_SESSION['action_error'] ?></p>
+        <?php elseif (isset($_SESSION['action_error_cart'])) : ?>
+            <p class="form__main-alert form__failed"><?= $_SESSION['action_error_cart'] ?></p>
         <?php endif; ?>
 
         <div class="form-group">
@@ -38,6 +40,6 @@
     Utils::eliminarSesion('action_status');
     Utils::eliminarSesion('current_data'); 
     Utils::eliminarSesion('user_login_error'); 
-    Utils::eliminarSesion('action_error'); 
+    Utils::eliminarSesion('action_error_cart');
     ?>
 </section>

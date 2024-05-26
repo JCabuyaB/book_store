@@ -217,8 +217,8 @@
 }
 
 .form-group__input.book.imagen{
-    width: 100%;
     width: 50%;
+    min-height: 38px;
 }
 
 /* tables */
@@ -309,11 +309,11 @@
 /* libros */
 .table-container.libros{
     margin-top: 20px;
+    max-width: 1200px;
 }
 
 .table.libros{
     max-height: 500px;
-
 }
 
 .table.libros tbody{

@@ -68,7 +68,7 @@ class Carrito{
 
     public function finalizar(){
         if(!isset($_SESSION['user'])){
-            $_SESSION['action_error'] = "Debe iniciar sesión para finalizar la compra";
+            $_SESSION['action_error_cart'] = "Debe iniciar sesión para finalizar la compra";
         }
 
         if(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0){

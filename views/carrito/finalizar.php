@@ -7,7 +7,7 @@ use helpers\Utils;
 <section class="form-container">
     <!-- actualizar -->
     <?php if (isset($_SESSION['user'])) : ?>
-        <form action="<?= base_url ?>compra/" class="form user-form user-register" method="POST">
+        <form action="<?= base_url ?>compra/terminar" class="form user-form user-register" method="POST">
             <h2 class="form__title">Verifique sus datos y su pedido</h2>
             <?php if (isset($_SESSION['action_error'])) : ?>
                 <p class="form__main-alert form__failed"><?= $_SESSION['action_error'] ?></p>
@@ -105,7 +105,6 @@ use helpers\Utils;
 
     <?php
     Utils::eliminarSesion('errors');
-    // Utils::eliminarSesion('current_data');
-    // Utils::eliminarSesion('action_status');
+    Utils::eliminarSesion('action_error');
     ?>
 </section>

@@ -8,20 +8,20 @@ use helpers\Utils;
 use Exception;
 
 class Compra{
-    public function index(){
+    public function terminar(){
         if(isset($_POST) && isset($_SESSION['user']) && isset($_SESSION['cart']) && count($_SESSION['cart']) > 0){
             $pedido = new Compra_detalle();
             $id_user = $_SESSION['user']->id;
+
             try{
                 // datos de la compra
                 $pedido->__set('id_usuario', $id_user);
                 $compra = $pedido->insert_all_bill();
 
-                if(!$compra){
-                    $_SESSION['action_error'] = "No se creó el pedido";
-                    header('Location: ' . base_url . 'carrito/finalizar');
-                }else{
+                if($compra){
                     unset($_SESSION['cart']);
+                    header('Location: ' . base_url . 'compra/compras');
+                    exit();
                 }
 
             }catch(Exception $e){
@@ -30,7 +30,7 @@ class Compra{
         }else{
             $_SESSION['action_error'] = "No se completó la petición";
         }
-        header('Location: ' . base_url . 'compra/compras');
+        header('Location: ' . base_url . 'carrito/finalizar');
     }
 
     public function compras(){
