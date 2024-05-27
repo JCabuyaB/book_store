@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es ">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -72,7 +72,7 @@ use controllers\ComplementsInfo; ?>
             <div class="cart">
                 <?php if (isset($_SESSION['cart']) && !isset($_SESSION['admin'])) : ?>
                     <a class="cart__info" href="<?= base_url ?>carrito/"><i class="bi bi-cart-fill"></i> Libros: <?= count($_SESSION['cart']) ?></a>
-                <?php elseif(!isset($_SESSION['admin'])) : ?>
+                <?php elseif (!isset($_SESSION['admin'])) : ?>
                     <a class="cart__info" href="<?= base_url ?>carrito/"><i class="bi bi-cart-fill"></i> Libros: 0</a>
                 <?php endif; ?>
             </div>

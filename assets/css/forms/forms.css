@@ -192,6 +192,14 @@
     width: 700px;
 }
 
+.eye-pass{
+    color: var(--color-secondary);
+    font-size: 20px;
+    position: absolute;
+    line-height: 38px;
+    right: 10px;
+    cursor: pointer;
+}
 /* categorias */
 .form-container.categorias,
 .form-container.editorial {

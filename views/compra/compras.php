@@ -2,7 +2,7 @@
 
 use helpers\Utils; ?>
 <section class="carrito">
-    <?php if (isset($pedidos)) : ?>
+    <?php if (isset($pedidos) && $pedidos) : ?>
         <h2 class="main__title">Pedidos</h2>
 
         <div class="table-container libros">
@@ -54,7 +54,6 @@ use helpers\Utils; ?>
         </div>
         <?php Utils::eliminarSesion('action_status'); ?>
     <?php else : ?>
-
-        <h2 class="main__title">Carrito vacío</h2>
+        <h2 class="main__title">Sin pedidos...</h2>
     <?php endif; ?>
 </section>

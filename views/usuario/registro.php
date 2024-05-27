@@ -62,8 +62,9 @@
                 </div>
 
                 <div class="form-group">
-                    <input class="form-group__input" type="password" name="password" required>
+                    <input class="form-group__input" type="password" name="password" id="password1" required>
                     <label class="form-group__label"><i class="bi bi-person-fill-lock"></i>Contraseña</label>
+                    <i class="bi bi-eye-fill eye-pass" id="eye1"></i>
                     <?php if (isset($_SESSION['errors']['contra'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['contra'] ?></p>
                     <?php elseif (isset($_SESSION['errors']['comparar_contra'])) : ?>
@@ -72,8 +73,9 @@
                 </div>
 
                 <div class="form-group">
-                    <input class="form-group__input" type="password" name="confirm_pass" required>
+                    <input class="form-group__input" type="password" name="confirm_pass" id="password2" required>
                     <label class="form-group__label"><i class="bi bi-person-fill-lock"></i>Confirmar contraseña</label>
+                    <i class="bi bi-eye-fill eye-pass" id="eye2"></i>
                     <?php if (isset($_SESSION['errors']['confirmar_contra'])) : ?>
                         <p class="form-alert form-group__error"><i class="bi bi-info-circle"></i> <?= $_SESSION['errors']['confirmar_contra'] ?></p>
                     <?php elseif (isset($_SESSION['errors']['comparar_contra'])) : ?>
