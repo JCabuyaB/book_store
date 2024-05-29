@@ -3,7 +3,7 @@
         <h2 class="form__title">Acceder</h2>
         <?php if (isset($_SESSION['action_status']['failed'])) : ?>
             <p class="form__main-alert form__failed"><?= $_SESSION['action_status']['failed'] ?></p>
-        <?php elseif (isset($_SESSION['c'])) : ?>
+        <?php elseif (isset($_SESSION['user_login_error'])) : ?>
             <p class="form__main-alert form__failed"><?= $_SESSION['user_login_error'] ?></p>
         <?php elseif (isset($_SESSION['action_status']['success'])) : ?>
             <p class="form__main-alert form__success"><?= $_SESSION['action_status']['success'] ?></p>
